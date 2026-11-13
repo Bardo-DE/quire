@@ -64,12 +64,12 @@ unknown-registry = "deny"
 unknown-git = "deny"
 allow-registry = ["https://github.com/rust-lang/crates.io-index"]
 allow-git = [
-    "https://github.com/PoHsuanLai/anyrender",
-    "https://github.com/PoHsuanLai/bayonet.git",
-    "https://github.com/PoHsuanLai/blitz",
-    "https://github.com/PoHsuanLai/chordkit.git",
-    "https://github.com/PoHsuanLai/dioxus",
-    "https://github.com/PoHsuanLai/peephole",
-    "https://github.com/PoHsuanLai/vello",
+    "https://github.com/Bardo-DE/anyrender",
+    "https://github.com/Bardo-DE/bayonet.git",
+    "https://github.com/Bardo-DE/blitz",
+    "https://github.com/Bardo-DE/chordkit.git",
+    "https://github.com/Bardo-DE/dioxus",
+    "https://github.com/Bardo-DE/peephole",
+    "https://github.com/Bardo-DE/vello",
     "https://github.com/DioxusLabs/taffy",
 ]

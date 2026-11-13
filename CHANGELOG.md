@@ -3,7 +3,19 @@
 Quire has published its release notes as the tag message. This file keeps them in the tree, newest
 first, with what a consumer has to change.
 
-## Unreleased
+## v0.3.59
+
+### wh-bd2
+
+- **quire lives at github.com/Bardo-DE/quire**, and every git source it names is the organisation's: blitz, dioxus, vello, anyrender, chordkit, bayonet, peephole, latchkey and blitz-kit. The revs are the same except two: blitz-kit moves to 50a25175 (its own move to Bardo-DE; the merge of #7 before it adds no code over 5b5380d0) and latchkey to b2ba9516 (the move only). `examples/consumer/Cargo.lock` is refreshed to the pinned block.
+  **Consumer change:** a consumer names every moved repo by `https://github.com/Bardo-DE/<repo>` in the same change it takes this tag, and moves blitz-kit and latchkey to the revs above, so one crate never comes from both URLs. The old URLs still redirect.
+
+### Also on master since v0.3.58
+
+- A held menu is placed at the height it is drawn at, so it opens where it stays; the search card's rows do not scroll sideways past a long row; a search field's tokens can be pressed and removed (#67).
+- PickList: Escape clears a typed query and keeps the list; on an empty field it closes (#66).
+- A Mac applies the system's own momentum after a lift and adds no glide of ours; a wheel click is 40 px with no acceleration (#65).
+- A RectProbe whose owner has gone ignores an onmounted event queued before it went, instead of panicking (#65).
 
 ### steady-virtual-list
 

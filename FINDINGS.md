@@ -7,7 +7,7 @@ with the workaround quire uses. It is a reference, not a log: how each fact was 
 changed when, lives in git history. Code cites sections by name (FINDINGS "Edit surface"), so a
 renamed heading needs its citations updated.
 
-The pinned Blitz is the fork rev `bf588142` (github.com/PoHsuanLai/blitz, branch `quire-pin`):
+The pinned Blitz is the fork rev `bf588142` (github.com/Bardo-DE/blitz, branch `quire-pin`):
 upstream `e99fbdbd` plus one patch that restyles an element whose animation was cancelled
 mid-way. "At the pinned rev" below means that rev, with dioxus 0.7.x, stylo 0.21, taffy at
 blitz's lock, parley 0.11, anyrender_vello_cpu 0.17 / vello_cpu 0.1, anyrender_vello_hybrid 0.10 /
@@ -449,7 +449,7 @@ adapter opens).
 
 - **How.** Stock anyrender and vello cannot do this, so the workspace patches them
   (`[patch.crates-io]` in the root `Cargo.toml`) with the `quire-filters` branches of our forks,
-  github.com/PoHsuanLai/vello and github.com/PoHsuanLai/anyrender, and enables anyrender_vello_cpu's `filters` feature
+  github.com/Bardo-DE/vello and github.com/Bardo-DE/anyrender, and enables anyrender_vello_cpu's `filters` feature
   in the pinned block. vello: a colour matrix filter (`vello_common`, the CPU pass in `vello_cpu`,
   a `PASS_COLOR_MATRIX` in `vello_hybrid`'s `filter.wesl` with the GPU filter struct grown from 48
   to 96 bytes), the CSS functions' matrices (`vello_common::filter_effects::matrices`), and filter

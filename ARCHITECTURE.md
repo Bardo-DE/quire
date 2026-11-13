@@ -960,7 +960,7 @@ the components the design holds under `--s-8`, each with its reason; an app adds
   `Cargo.toml` and every consumer copy it verbatim. `blitz-kit` copies it too. The block holds the
   `blitz-kit` line, a git dependency at a pinned rev (public repo). Each workspace root that
   builds it from a sibling checkout (quire, shell-host, sill) adds
-  `[patch."https://github.com/PoHsuanLai/blitz-kit"] blitz-kit = { path = "../blitz-kit/crates/blitz-kit" }`,
+  `[patch."https://github.com/Bardo-DE/blitz-kit"] blitz-kit = { path = "../blitz-kit/crates/blitz-kit" }`,
   so local builds use one checkout while a git consumer of quire, whose `[patch]` is ignored,
   gets the pinned rev. A blitz-kit bump is a rev change in the block, in all three repos.
 - **`docs/licensing-references.md`** is the verified licence table the borrowing rules cite.

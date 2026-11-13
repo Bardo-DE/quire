@@ -76,26 +76,26 @@ notifications, widgets, emoji, month grid, date picker) are not quire's: they ar
 with the release it is in a trailing comment:
 
 ```toml
-ds       = { git = "https://github.com/PoHsuanLai/quire.git", rev = "<full sha>" }  # v0.2.31
-ds-blitz = { git = "https://github.com/PoHsuanLai/quire.git", rev = "<full sha>" }  # v0.2.31; only if you run on Blitz
+ds       = { git = "https://github.com/Bardo-DE/quire.git", rev = "<full sha>" }  # v0.2.31
+ds-blitz = { git = "https://github.com/Bardo-DE/quire.git", rev = "<full sha>" }  # v0.2.31; only if you run on Blitz
 ```
 
 The spelling is the same in every repo: the URL ends in `.git`, the revision is the full 40-character
 sha (never a tag, never a branch), and a trailing `# vX.Y.Z` names the release it is. Cargo finds each
 crate by name in the one repository, so the crates of a revision share it.
 Nothing else is needed for quire's own dependencies: `blitz-kit` (its own public repo,
-github.com/PoHsuanLai/blitz-kit) comes transitively at the rev quire's `Cargo.toml` pins, and so
+github.com/Bardo-DE/blitz-kit) comes transitively at the rev quire's `Cargo.toml` pins, and so
 does the rest of the pinned block. Do not add a `[patch]` for it unless you develop `blitz-kit`
 alongside: quire's own `[patch]` table (its local `blitz-kit` checkout, the vello and anyrender
 forks) applies only when quire is the workspace root, never to a consumer, so a consumer that
 needs the forks' behaviour (the CSS `filter` functions) copies the `[patch.crates-io]` block
 from quire's root `Cargo.toml` into its own workspace root. The same block carries the
 `dioxus-core` fork patch (`dioxus-core`, `dioxus-core-types`, `generational-box`, `subsecond`,
-`subsecond-types`, all at one rev of github.com/PoHsuanLai/dioxus): dioxus-core 0.7.10 can spin forever
+`subsecond-types`, all at one rev of github.com/Bardo-DE/dioxus): dioxus-core 0.7.10 can spin forever
 in `wait_for_work` when a task is cancelled before it is polled (a `use_resource` restart), fixed
 upstream only in 0.8 (DioxusLabs/dioxus#5554). Every consumer that runs a `VirtualDom` copies those
 five lines too, and drops them when quire moves to dioxus 0.8. shell-host and sill add, for their
-local checkouts, `[patch."https://github.com/PoHsuanLai/blitz-kit"]` pointing at a sibling
+local checkouts, `[patch."https://github.com/Bardo-DE/blitz-kit"]` pointing at a sibling
 `blitz-kit` so every path-linked repo builds one copy.
 
 **Launching on Blitz.** `ds_blitz::launch(app, AppConfig::new(title, WindowSize::new(width, height)))`
@@ -2310,7 +2310,7 @@ The backdrop is the desktop's own picture (the output's wallpaper), drawn under 
 ## 15. Keyboard: actions, not modifiers
 
 An app never reads which modifier is held and never decides Command versus Ctrl. quire is the one
-toolkit integration of chordkit (github.com/PoHsuanLai/chordkit, the keymap core): a key event
+toolkit integration of chordkit (github.com/Bardo-DE/chordkit, the keymap core): a key event
 becomes a chordkit key press in one place (`ds_core::command::key_input`), resolves to an `Action`
 in the right `Context`, and every shortcut is drawn through chordkit's display. On each OS the
 keymap follows that OS's own shortcut settings when it has any (kdeglobals on KDE, a dconf dump on

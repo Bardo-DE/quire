@@ -68,7 +68,7 @@ dependencies = [
 [[package]]
 name = "accesskit_xplat"
 version = "0.2.0"
-source = "git+https://github.com/PoHsuanLai/blitz?rev=841386a71f17673c211217725e75068774517ba8#841386a71f17673c211217725e75068774517ba8"
+source = "git+https://github.com/Bardo-DE/blitz?rev=841386a71f17673c211217725e75068774517ba8#841386a71f17673c211217725e75068774517ba8"
 dependencies = [
  "accesskit",
  "accesskit_macos",
@@ -213,7 +213,7 @@ checksum = "330a5ed07fa54e4702c9d6c4174f74427fc0ef6e214bbd677ae50a5099946470"
 [[package]]
 name = "anyrender"
 version = "0.13.0"
-source = "git+https://github.com/PoHsuanLai/anyrender?rev=03fcbe4c746d2334d3fb91e63641741f3dacc826#03fcbe4c746d2334d3fb91e63641741f3dacc826"
+source = "git+https://github.com/Bardo-DE/anyrender?rev=03fcbe4c746d2334d3fb91e63641741f3dacc826#03fcbe4c746d2334d3fb91e63641741f3dacc826"
 dependencies = [
  "kurbo",
  "peniko",
@@ -237,7 +237,7 @@ dependencies = [
 [[package]]
 name = "anyrender_vello_cpu"
 version = "0.17.0"
-source = "git+https://github.com/PoHsuanLai/anyrender?rev=03fcbe4c746d2334d3fb91e63641741f3dacc826#03fcbe4c746d2334d3fb91e63641741f3dacc826"
+source = "git+https://github.com/Bardo-DE/anyrender?rev=03fcbe4c746d2334d3fb91e63641741f3dacc826#03fcbe4c746d2334d3fb91e63641741f3dacc826"
 dependencies = [
  "anyrender",
  "bytemuck",
@@ -254,7 +254,7 @@ dependencies = [
 [[package]]
 name = "anyrender_vello_hybrid"
 version = "0.10.0"
-source = "git+https://github.com/PoHsuanLai/anyrender?rev=03fcbe4c746d2334d3fb91e63641741f3dacc826#03fcbe4c746d2334d3fb91e63641741f3dacc826"
+source = "git+https://github.com/Bardo-DE/anyrender?rev=03fcbe4c746d2334d3fb91e63641741f3dacc826#03fcbe4c746d2334d3fb91e63641741f3dacc826"
 dependencies = [
  "anyrender",
  "debug_timer 0.1.3 (registry+https://github.com/rust-lang/crates.io-index)",
@@ -499,7 +499,7 @@ checksum = "ac07cdecf99051d9a5238b80f35af32cdeba5b336e55d957b318b50137e18da5"
 [[package]]
 name = "bayonet"
 version = "0.2.0"
-source = "git+https://github.com/PoHsuanLai/bayonet.git?rev=d66e243188033c1b7c74e636cb5f548f75caecb8#d66e243188033c1b7c74e636cb5f548f75caecb8"
+source = "git+https://github.com/Bardo-DE/bayonet.git?rev=d66e243188033c1b7c74e636cb5f548f75caecb8#d66e243188033c1b7c74e636cb5f548f75caecb8"
 dependencies = [
  "rustix",
  "serde",
@@ -550,7 +550,7 @@ dependencies = [
 [[package]]
 name = "blitz-dom"
 version = "0.3.0-beta.2"
-source = "git+https://github.com/PoHsuanLai/blitz?rev=841386a71f17673c211217725e75068774517ba8#841386a71f17673c211217725e75068774517ba8"
+source = "git+https://github.com/Bardo-DE/blitz?rev=841386a71f17673c211217725e75068774517ba8#841386a71f17673c211217725e75068774517ba8"
 dependencies = [
  "accesskit",
  "anyrender",
@@ -561,7 +561,7 @@ dependencies = [
  "color",
  "cssparser",
  "cursor-icon",
- "debug_timer 0.1.3 (git+https://github.com/PoHsuanLai/blitz?rev=841386a71f17673c211217725e75068774517ba8)",
+ "debug_timer 0.1.3 (git+https://github.com/Bardo-DE/blitz?rev=841386a71f17673c211217725e75068774517ba8)",
  "euclid",
  "html-escape",
  "image",
@@ -594,7 +594,7 @@ dependencies = [
 [[package]]
 name = "blitz-html"
 version = "0.3.0-beta.2"
-source = "git+https://github.com/PoHsuanLai/blitz?rev=841386a71f17673c211217725e75068774517ba8#841386a71f17673c211217725e75068774517ba8"
+source = "git+https://github.com/Bardo-DE/blitz?rev=841386a71f17673c211217725e75068774517ba8#841386a71f17673c211217725e75068774517ba8"
 dependencies = [
  "blitz-dom",
  "blitz-traits",
@@ -618,7 +618,7 @@ dependencies = [
 [[package]]
 name = "blitz-paint"
 version = "0.3.0-beta.2"
-source = "git+https://github.com/PoHsuanLai/blitz?rev=841386a71f17673c211217725e75068774517ba8#841386a71f17673c211217725e75068774517ba8"
+source = "git+https://github.com/Bardo-DE/blitz?rev=841386a71f17673c211217725e75068774517ba8#841386a71f17673c211217725e75068774517ba8"
 dependencies = [
  "anyrender",
  "anyrender_svg",
@@ -639,7 +639,7 @@ dependencies = [
 [[package]]
 name = "blitz-shell"
 version = "0.3.0-beta.2"
-source = "git+https://github.com/PoHsuanLai/blitz?rev=841386a71f17673c211217725e75068774517ba8#841386a71f17673c211217725e75068774517ba8"
+source = "git+https://github.com/Bardo-DE/blitz?rev=841386a71f17673c211217725e75068774517ba8#841386a71f17673c211217725e75068774517ba8"
 dependencies = [
  "accesskit",
  "accesskit_xplat",
@@ -661,7 +661,7 @@ dependencies = [
 [[package]]
 name = "blitz-traits"
 version = "0.3.0-beta.2"
-source = "git+https://github.com/PoHsuanLai/blitz?rev=841386a71f17673c211217725e75068774517ba8#841386a71f17673c211217725e75068774517ba8"
+source = "git+https://github.com/Bardo-DE/blitz?rev=841386a71f17673c211217725e75068774517ba8#841386a71f17673c211217725e75068774517ba8"
 dependencies = [
  "atomic_refcell",
  "bitflags",
@@ -867,7 +867,7 @@ checksum = "f079e83a288787bcd14a6aea84cee5c87a67c5a3e660c30f557a3d24761b3527"
 [[package]]
 name = "chordkit"
 version = "0.1.0"
-source = "git+https://github.com/PoHsuanLai/chordkit.git?rev=99eec9ddd03ee345b669fcc7954ed44590724290#99eec9ddd03ee345b669fcc7954ed44590724290"
+source = "git+https://github.com/Bardo-DE/chordkit.git?rev=99eec9ddd03ee345b669fcc7954ed44590724290#99eec9ddd03ee345b669fcc7954ed44590724290"
 dependencies = [
  "thiserror 2.0.21",
 ]
@@ -875,7 +875,7 @@ dependencies = [
 [[package]]
 name = "chordkit-file"
 version = "0.1.0"
-source = "git+https://github.com/PoHsuanLai/chordkit.git?rev=99eec9ddd03ee345b669fcc7954ed44590724290#99eec9ddd03ee345b669fcc7954ed44590724290"
+source = "git+https://github.com/Bardo-DE/chordkit.git?rev=99eec9ddd03ee345b669fcc7954ed44590724290#99eec9ddd03ee345b669fcc7954ed44590724290"
 dependencies = [
  "libc",
  "thiserror 2.0.21",
@@ -884,7 +884,7 @@ dependencies = [
 [[package]]
 name = "chordkit-gnome"
 version = "0.1.0"
-source = "git+https://github.com/PoHsuanLai/chordkit.git?rev=99eec9ddd03ee345b669fcc7954ed44590724290#99eec9ddd03ee345b669fcc7954ed44590724290"
+source = "git+https://github.com/Bardo-DE/chordkit.git?rev=99eec9ddd03ee345b669fcc7954ed44590724290#99eec9ddd03ee345b669fcc7954ed44590724290"
 dependencies = [
  "chordkit",
  "chordkit-file",
@@ -893,7 +893,7 @@ dependencies = [
 [[package]]
 name = "chordkit-kde"
 version = "0.1.0"
-source = "git+https://github.com/PoHsuanLai/chordkit.git?rev=99eec9ddd03ee345b669fcc7954ed44590724290#99eec9ddd03ee345b669fcc7954ed44590724290"
+source = "git+https://github.com/Bardo-DE/chordkit.git?rev=99eec9ddd03ee345b669fcc7954ed44590724290#99eec9ddd03ee345b669fcc7954ed44590724290"
 dependencies = [
  "chordkit",
  "chordkit-file",
@@ -1274,7 +1274,7 @@ checksum = "da220af51a1a335e9a930beaaef53d261e41ea9eecfb3d973a3ddae1a7284b9c"
 [[package]]
 name = "debug_timer"
 version = "0.1.3"
-source = "git+https://github.com/PoHsuanLai/blitz?rev=841386a71f17673c211217725e75068774517ba8#841386a71f17673c211217725e75068774517ba8"
+source = "git+https://github.com/Bardo-DE/blitz?rev=841386a71f17673c211217725e75068774517ba8#841386a71f17673c211217725e75068774517ba8"
 
 [[package]]
 name = "derive_more"
@@ -1369,7 +1369,7 @@ checksum = "20de015bc89c20f4ffc7b4f849943420308365fa66f991250b5c075261990a21"
 [[package]]
 name = "dioxus-core"
 version = "0.7.10"
-source = "git+https://github.com/PoHsuanLai/dioxus?rev=a615fd9f09e272c688a45e366161c576cecf0439#a615fd9f09e272c688a45e366161c576cecf0439"
+source = "git+https://github.com/Bardo-DE/dioxus?rev=a615fd9f09e272c688a45e366161c576cecf0439#a615fd9f09e272c688a45e366161c576cecf0439"
 dependencies = [
  "anyhow",
  "const_format",
@@ -1403,7 +1403,7 @@ dependencies = [
 [[package]]
 name = "dioxus-core-types"
 version = "0.7.10"
-source = "git+https://github.com/PoHsuanLai/dioxus?rev=a615fd9f09e272c688a45e366161c576cecf0439#a615fd9f09e272c688a45e366161c576cecf0439"
+source = "git+https://github.com/Bardo-DE/dioxus?rev=a615fd9f09e272c688a45e366161c576cecf0439#a615fd9f09e272c688a45e366161c576cecf0439"
 
 [[package]]
 name = "dioxus-document"
@@ -1492,7 +1492,7 @@ dependencies = [
 [[package]]
 name = "dioxus-native"
 version = "0.7.0"
-source = "git+https://github.com/PoHsuanLai/blitz?rev=841386a71f17673c211217725e75068774517ba8#841386a71f17673c211217725e75068774517ba8"
+source = "git+https://github.com/Bardo-DE/blitz?rev=841386a71f17673c211217725e75068774517ba8#841386a71f17673c211217725e75068774517ba8"
 dependencies = [
  "android-activity",
  "anyrender",
@@ -1524,7 +1524,7 @@ dependencies = [
 [[package]]
 name = "dioxus-native-dom"
 version = "0.7.0"
-source = "git+https://github.com/PoHsuanLai/blitz?rev=841386a71f17673c211217725e75068774517ba8#841386a71f17673c211217725e75068774517ba8"
+source = "git+https://github.com/Bardo-DE/blitz?rev=841386a71f17673c211217725e75068774517ba8#841386a71f17673c211217725e75068774517ba8"
 dependencies = [
  "blitz-dom",
  "blitz-traits",
@@ -2361,7 +2361,7 @@ dependencies = [
 [[package]]
 name = "generational-box"
 version = "0.7.10"
-source = "git+https://github.com/PoHsuanLai/dioxus?rev=a615fd9f09e272c688a45e366161c576cecf0439#a615fd9f09e272c688a45e366161c576cecf0439"
+source = "git+https://github.com/Bardo-DE/dioxus?rev=a615fd9f09e272c688a45e366161c576cecf0439#a615fd9f09e272c688a45e366161c576cecf0439"
 dependencies = [
  "parking_lot",
  "tracing",
@@ -2422,7 +2422,7 @@ dependencies = [
 [[package]]
 name = "glifo"
 version = "0.2.0"
-source = "git+https://github.com/PoHsuanLai/vello?rev=5c986661c9e943d26dac8e8ea7812895947722b8#5c986661c9e943d26dac8e8ea7812895947722b8"
+source = "git+https://github.com/Bardo-DE/vello?rev=5c986661c9e943d26dac8e8ea7812895947722b8#5c986661c9e943d26dac8e8ea7812895947722b8"
 dependencies = [
  "bytemuck",
  "foldhash 0.2.0",
@@ -4237,7 +4237,7 @@ dependencies = [
 [[package]]
 name = "peephole"
 version = "0.1.6"
-source = "git+https://github.com/PoHsuanLai/peephole?tag=v0.1.6#87a3d225d7526d03f16acff2245374cb00a27e24"
+source = "git+https://github.com/Bardo-DE/peephole?tag=v0.1.6#87a3d225d7526d03f16acff2245374cb00a27e24"
 dependencies = [
  "nix",
  "peephole-core",
@@ -4248,7 +4248,7 @@ dependencies = [
 [[package]]
 name = "peephole-bus"
 version = "0.1.6"
-source = "git+https://github.com/PoHsuanLai/peephole?tag=v0.1.6#87a3d225d7526d03f16acff2245374cb00a27e24"
+source = "git+https://github.com/Bardo-DE/peephole?tag=v0.1.6#87a3d225d7526d03f16acff2245374cb00a27e24"
 dependencies = [
  "futures-timer",
  "peephole",
@@ -4260,7 +4260,7 @@ dependencies = [
 [[package]]
 name = "peephole-core"
 version = "0.1.6"
-source = "git+https://github.com/PoHsuanLai/peephole?tag=v0.1.6#87a3d225d7526d03f16acff2245374cb00a27e24"
+source = "git+https://github.com/Bardo-DE/peephole?tag=v0.1.6#87a3d225d7526d03f16acff2245374cb00a27e24"
 dependencies = [
  "serde",
  "thiserror 2.0.21",
@@ -4429,7 +4429,7 @@ dependencies = [
 [[package]]
 name = "pixels_window_renderer"
 version = "0.8.0"
-source = "git+https://github.com/PoHsuanLai/anyrender?rev=03fcbe4c746d2334d3fb91e63641741f3dacc826#03fcbe4c746d2334d3fb91e63641741f3dacc826"
+source = "git+https://github.com/Bardo-DE/anyrender?rev=03fcbe4c746d2334d3fb91e63641741f3dacc826#03fcbe4c746d2334d3fb91e63641741f3dacc826"
 dependencies = [
  "anyrender",
  "debug_timer 0.1.3 (registry+https://github.com/rust-lang/crates.io-index)",
@@ -5369,7 +5369,7 @@ dependencies = [
 [[package]]
 name = "stylo_taffy"
 version = "0.3.0-beta.2"
-source = "git+https://github.com/PoHsuanLai/blitz?rev=841386a71f17673c211217725e75068774517ba8#841386a71f17673c211217725e75068774517ba8"
+source = "git+https://github.com/Bardo-DE/blitz?rev=841386a71f17673c211217725e75068774517ba8#841386a71f17673c211217725e75068774517ba8"
 dependencies = [
  "bitflags",
  "stylo",
@@ -5402,7 +5402,7 @@ dependencies = [
 [[package]]
 name = "subsecond"
 version = "0.7.10"
-source = "git+https://github.com/PoHsuanLai/dioxus?rev=a615fd9f09e272c688a45e366161c576cecf0439#a615fd9f09e272c688a45e366161c576cecf0439"
+source = "git+https://github.com/Bardo-DE/dioxus?rev=a615fd9f09e272c688a45e366161c576cecf0439#a615fd9f09e272c688a45e366161c576cecf0439"
 dependencies = [
  "js-sys",
  "libc",
@@ -5420,7 +5420,7 @@ dependencies = [
 [[package]]
 name = "subsecond-types"
 version = "0.7.10"
-source = "git+https://github.com/PoHsuanLai/dioxus?rev=a615fd9f09e272c688a45e366161c576cecf0439#a615fd9f09e272c688a45e366161c576cecf0439"
+source = "git+https://github.com/Bardo-DE/dioxus?rev=a615fd9f09e272c688a45e366161c576cecf0439#a615fd9f09e272c688a45e366161c576cecf0439"
 dependencies = [
  "serde",
 ]
@@ -5947,7 +5947,7 @@ dependencies = [
 [[package]]
 name = "vello_common"
 version = "0.1.0"
-source = "git+https://github.com/PoHsuanLai/vello?rev=5c986661c9e943d26dac8e8ea7812895947722b8#5c986661c9e943d26dac8e8ea7812895947722b8"
+source = "git+https://github.com/Bardo-DE/vello?rev=5c986661c9e943d26dac8e8ea7812895947722b8#5c986661c9e943d26dac8e8ea7812895947722b8"
 dependencies = [
  "bytemuck",
  "fearless_simd",
@@ -5977,7 +5977,7 @@ dependencies = [
 [[package]]
 name = "vello_cpu"
 version = "0.1.0"
-source = "git+https://github.com/PoHsuanLai/vello?rev=5c986661c9e943d26dac8e8ea7812895947722b8#5c986661c9e943d26dac8e8ea7812895947722b8"
+source = "git+https://github.com/Bardo-DE/vello?rev=5c986661c9e943d26dac8e8ea7812895947722b8#5c986661c9e943d26dac8e8ea7812895947722b8"
 dependencies = [
  "bytemuck",
  "crossbeam-channel",
@@ -6004,7 +6004,7 @@ dependencies = [
 [[package]]
 name = "vello_hybrid"
 version = "0.1.0"
-source = "git+https://github.com/PoHsuanLai/vello?rev=5c986661c9e943d26dac8e8ea7812895947722b8#5c986661c9e943d26dac8e8ea7812895947722b8"
+source = "git+https://github.com/Bardo-DE/vello?rev=5c986661c9e943d26dac8e8ea7812895947722b8#5c986661c9e943d26dac8e8ea7812895947722b8"
 dependencies = [
  "bytemuck",
  "glifo 0.2.0",
@@ -6019,7 +6019,7 @@ dependencies = [
 [[package]]
 name = "vello_sparse_shaders"
 version = "0.1.0"
-source = "git+https://github.com/PoHsuanLai/vello?rev=5c986661c9e943d26dac8e8ea7812895947722b8#5c986661c9e943d26dac8e8ea7812895947722b8"
+source = "git+https://github.com/Bardo-DE/vello?rev=5c986661c9e943d26dac8e8ea7812895947722b8#5c986661c9e943d26dac8e8ea7812895947722b8"
 dependencies = [
  "wesl",
  "wesl-macros",
@@ -6551,7 +6551,7 @@ dependencies = [
 [[package]]
 name = "wgpu_context"
 version = "0.9.0"
-source = "git+https://github.com/PoHsuanLai/anyrender?rev=03fcbe4c746d2334d3fb91e63641741f3dacc826#03fcbe4c746d2334d3fb91e63641741f3dacc826"
+source = "git+https://github.com/Bardo-DE/anyrender?rev=03fcbe4c746d2334d3fb91e63641741f3dacc826#03fcbe4c746d2334d3fb91e63641741f3dacc826"
 dependencies = [
  "futures-intrusive",
  "wgpu",

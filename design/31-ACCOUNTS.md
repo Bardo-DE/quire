@@ -782,7 +782,7 @@ stores elsewhere. Items 4-13 stand as recommended.
 ## 11. Frozen interfaces (porter)
 
 The interfaces of sections 2 to 6 are frozen as code in the porter repo
-(github.com/PoHsuanLai/porter, private): types, traits, the provider file format, the wire
+(github.com/Bardo-DE/porter, private): types, traits, the provider file format, the wire
 protocol and the D-Bus signatures compile, pure logic is implemented with table tests, and
 behaviour that needs a provider, a vendor, a bus or a keyring is stubbed. porter's
 `ARCHITECTURE.md` is the map (section 5 there says what is built and what is stubbed; section 8

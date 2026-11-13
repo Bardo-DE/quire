@@ -33,7 +33,7 @@ Marks: **[freeze now]** means the type, signature or format is fixed in the free
 
 ### 2.1 Placement
 
-A **new repo `~/almanac`** (github.com/PoHsuanLai/almanac). It is shaped like porter: a workspace, frozen interfaces, `todo!()` stubs listed in FINDINGS.md, `scripts/check-boundary.sh`, and `dbus/*.xml` checked against the skeletons. The daemon is **`memoryd`**, named for the concept like porter's `accountd`, `inferd` and `syncd`. The bus name is `org.quire.Memory1`.
+A **new repo `~/almanac`** (github.com/Bardo-DE/almanac). It is shaped like porter: a workspace, frozen interfaces, `todo!()` stubs listed in FINDINGS.md, `scripts/check-boundary.sh`, and `dbus/*.xml` checked against the skeletons. The daemon is **`memoryd`**, named for the concept like porter's `accountd`, `inferd` and `syncd`. The bus name is `org.quire.Memory1`.
 
 Why a separate repo: memory is not accounts. The three owned crates (`eventlog`, `memfiles`, `recall`) are meant to be reusable. memoryd also has its own confinement unit.
 
