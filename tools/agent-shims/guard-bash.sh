@@ -29,7 +29,10 @@ routed="${sep}(cargo|limit16g|rustup)([[:space:]]|\$)"
 
 [[ "$cmd" =~ $abs_cargo ]]    && deny "cargo called by absolute path"
 [[ "$cmd" =~ $rustc_direct ]] && deny "rustc called directly"
-[[ "$cmd" =~ $toolchain ]]    && deny "toolchain override on cargo"
+# The one allowed toolchain override: Miri, which exists only on nightly
+# (owner, 2026-11-03 for rtlsim-jit; widened to any crate 2026-11-08 for tutti's miri job).
+miri_ok="${sep}cargo[[:space:]]+\\+nightly[[:space:]]+miri([[:space:]]|\$)"
+[[ "$cmd" =~ $toolchain && ! "$cmd" =~ $miri_ok ]] && deny "toolchain override on cargo"
 [[ "$cmd" =~ $override ]]     && deny "inline override of a build-cap variable"
 
 # Already rewritten, or nothing to route: leave the command alone.
