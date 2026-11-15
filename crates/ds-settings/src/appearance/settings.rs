@@ -190,7 +190,7 @@ mod tests {
     use serde::Serialize;
     use serde::de::DeserializeOwned;
 
-    /// `CONVENTIONS.md#12-derives-and-serde`: "every stored or wire type has a round-trip test."
+    /// Every stored or wire type has a round-trip test.
     /// Raw `toml::to_string`/`from_str`, not through [`crate::Store`], so this
     /// exercises the struct's own `Serialize`/`Deserialize` in isolation.
     fn round_trips<T: Serialize + DeserializeOwned + PartialEq + std::fmt::Debug + Default>() {

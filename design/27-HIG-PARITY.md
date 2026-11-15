@@ -542,7 +542,7 @@ exits, which suits single-instance apps and their restarts.
 without new unsafe (`wayland_surface::adopt`), but not keep an `org_kde_kwin_appmenu` object alive:
 the compositor drops the address when that object is destroyed, `adopt` is a borrow tied to one call,
 and an object on a one-shot queue would be orphaned. The client half therefore waits for a compositor
-that offers the global (casement P3-MN, `wl/appmenu.rs`): then ds-blitz holds a persistent adopted
+that offers the global (casement P3-MN, wl/appmenu.rs): then ds-blitz holds a persistent adopted
 connection per window, binds `org_kde_kwin_appmenu_manager` when it is advertised, and calls
 `create(surface)` and `set_address(service, path)` with the address above. Until then the
 `app_id` mapping is the only path, and it stays the fallback after.

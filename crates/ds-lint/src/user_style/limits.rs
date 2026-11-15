@@ -1,5 +1,4 @@
-//! The limits of the cost notes (DESIGN.md section 7.5, recorded in CONVENTIONS.md, "Cost notes
-//! on a user stylesheet"). Each is a line past which CSS is legal but slows a frame; crossing one
+//! The limits of the cost notes (DESIGN.md section 7.5). Each is a line past which CSS is legal but slows a frame; crossing one
 //! earns a note, never a refusal.
 
 /// The largest blur radius, in CSS pixels, that `backdrop-filter` or `filter: blur()` may name

@@ -114,7 +114,7 @@ scaled by `appearance.material_tint_alpha` (`--m-frame-alpha`: the bar .70 light
 default) with blur, and at .94 without. The OSD is tinted like the bar (coherence across chrome
 wins), as the goldens (`crates/ds/tests/snapshots/root/chrome/osd.html`) and the Materials gallery
 sheet show. Over a pure black or white backdrop six material/scheme pairs need a further .02 tint
-alpha to reach 4.5 (03-COLOR §17.2 lists them; `crates/ds/tests/legibility.rs`'s
+alpha to reach 4.5 (03-COLOR §17.2 lists them; `crates/ds/tests/it/legibility.rs`'s
 `the_tinted_chrome_holds_its_ink_over_blur` holds for every pair, with and without blur).
 
 ## 4. Presets and defaults per workspace index

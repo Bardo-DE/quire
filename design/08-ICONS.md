@@ -346,7 +346,7 @@ rim and highlight are `--hair`.
   `[data-kind=image]` with the URL as `background-image`, `background-size:100% 100%`. Both are
   squares of `--ic-size` (the `ExternalIcon`'s size). Proved on Blitz with a PNG mask (the
   opaque pixels take `--ink`, the transparent ones show the ground) and an RGB PNG (keeps its
-  red), `crates/ds-conformance/tests/tray_menu.rs`. Step 3 (`--warn` for `NeedsAttention`) stays
+  red), `crates/ds-conformance/tests/it/tray_menu.rs`. Step 3 (`--warn` for `NeedsAttention`) stays
   the caller's: it sets the colour of the icon's parent.
 - Image filtering (2026-10-09): Blitz paints `<img>` (and an `Image` icon's `background-image`)
   with bilinear filtering, and `object-fit` is honoured (blitz-paint `render.rs`), so an image
@@ -685,7 +685,7 @@ CONSUMING.md "App icons and the icon style".
 
 **Consistency.** Procedural and Klein-derived icons share the plate geometry, bevel arc, bottom
 shade, specular point, rim, drop shadow, grain and the one palette by construction (one finish,
-one shadow, one grain for both). `tools/icons/tests/shipped.rs` checks it on the exported 512s
+one shadow, one grain for both). `tools/icons/tests/it/shipped.rs` checks it on the exported 512s
 of every style: silhouette against the squircle, bevel shade on all five, bevel arc on every
 plate that is not near white (the Paper plate, L 0.98, has no room for a white arc: its bevel
 shows as the shade and rim only), and the drop shadow's reach within 2 px.

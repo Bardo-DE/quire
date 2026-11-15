@@ -63,7 +63,7 @@ Rules, all three files:
   in the same change; the row goes when the key is read again or dropped for good, and the
   tests that compare rows with fields skip a `RETIRING` row.
 - **Unknown keys reported, not preserved**: a key no struct reads does not stop a load
-  (`CONVENTIONS.md#12-derives-and-serde`: never `deny_unknown_fields` on a stored type), but it is
+  (never `deny_unknown_fields` on a stored type), but it is
   not carried through a save either. `Store::load` returns it in `Loaded::unknown` (a dotted
   path, cut at the first table the struct has no key for) and the owning program prints it to its
   log; the next write drops it. There is no `extra` table and no compatibility for retired keys.
@@ -88,7 +88,7 @@ of its own and used `Count` with a unit label in prose; `Ms` is milliseconds and
 the tens-of-seconds to hours range idle timeouts need), `Scalar(f32)` a dimensionless physics
 constant that does not fit the above (momentum model exponents), `Units` a signed raw
 touchpad/report unit (device space, not px), `MicroUsd(u32)` millionths of a dollar (the companion's spend caps). Every enum is named; **no key is a `bool`**
-(`CONVENTIONS.md#4-types`).
+(types carry the facts).
 
 Status column values: **proposed** = doc marks the value proposed, this is the "make it a key"
 case; **settled (preference)** = doc marks it settled but it is a user-facing choice, so it is
@@ -123,7 +123,7 @@ hand-written. Where a note's default disagrees with the table, the table (the co
 | `appearance.transparency` | the portal has no key for it, so ours is a setting; `Reduced` paints every material solid and drops the vibrancy boost; the compositor reads it from this file, as it reads `theme` | `27-HIG-PARITY.md` section 3.1 | settled (adopted in 27) |
 | `appearance.look` | `standard`, or the id of an installed look Extension; a stored id that is not installed or is turned off reads as `standard` where the installed Extensions are known, and is reported once (`ds_extensions::chosen`). The choices come from the caller (9.1, `Provided`) | the customization design, sections 5 and 7.7 | proposed (2026-10-23) |
 | `appearance.file_icons` | `standard`, or the id of an installed file-icons Extension (a folder of pictures keyed by file type); a stored id that is not installed or is turned off reads as `standard` and is reported once (`ds_extensions::chosen`). A type the Extension has no picture for keeps the standard icon. Section "Files" of the Appearance page | the customization design, sections 5 and 6 | proposed (2026-10-24) |
-| `appearance.custom_styles` | "Use my styles": `off` makes `Ds` draw none of the look, the desktop-wide `style.css` or the app's `style.css`, live; the way back from a broken style (customization design section 7.4) | `customization/DESIGN.md` section 7.4 | proposed (2026-10-23) |
+| `appearance.custom_styles` | "Use my styles": `off` makes `Ds` draw none of the look, the desktop-wide `style.css` or the app's `style.css`, live; the way back from a broken style (customization design section 7.4) | customization/DESIGN.md section 7.4 | proposed (2026-10-23) |
 
 **Removed 2026-10-27 (settings keep only what macOS offers or a real behaviour choice).** The seven
 `appearance.material_*` keys are stylesheet tokens, not settings: `--m-tint-alpha` (.8),
@@ -523,7 +523,7 @@ The file viewer's timings, steps, history and the limits of its decoders. Page V
 | `viewer.export.avif_quality` | `Percent` | `65` | `1..=100`; the quality an image or frame exported as AVIF starts at | anyview `export/target.rs` `default_avif` | proposed (viewer join, 2026-10-03) |
 | `viewer.export.paper` | `PaperSize::{A4,A3,Letter,Legal}` | `A4` | the paper a text or document export to PDF or print is laid out on | anyview `export/layout.rs` `PaperSize` default | proposed (viewer join, 2026-10-03) |
 | `viewer.export.orientation` | `Orientation::{Portrait,Landscape}` | `Portrait` | which way up that paper is | anyview `export/layout.rs` `Orientation` default | proposed (viewer join, 2026-10-03) |
-| `viewer.peek.bytes_mib` | `Count` | `4` | `1..=256` MiB; the most a launcher peek reads from a file | anyview-peek `tests/support/mod.rs` `pane_budget` (4,000,000 bytes; no production constant) | proposed (viewer join, 2026-10-03) |
+| `viewer.peek.bytes_mib` | `Count` | `4` | `1..=256` MiB; the most a launcher peek reads from a file | anyview-peek tests/support/mod.rs `pane_budget` (4,000,000 bytes; no production constant) | proposed (viewer join, 2026-10-03) |
 | `viewer.peek.megapixels` | `Count` | `1` | `1..=64` Mpx; the most pixels a launcher peek decodes | same (1,000,000 pixels) | proposed (viewer join, 2026-10-03) |
 | `viewer.peek.time_ms` | `Ms` | `500` | `50..=10000`; the longest a launcher peek may take before it is abandoned | same (500 ms) | proposed (viewer join, 2026-10-03) |
 | `viewer.peek.lines` | `Count` | `40` | `5..=500`; lines of a text or code file a peek shows | anyview-text `peek/head.rs` `PEEK_LINES` | proposed (viewer join, 2026-10-03) |
@@ -576,8 +576,7 @@ Adds to `crates/ds-settings` (appearance/icons/motion) and a new `sill-settings`
 `palm_rejection` live in `palmrest`'s own crate but follow the identical shape so the three
 loaders share one macro/derive story.
 
-Shared newtypes (beyond the four the catalogue names, added per `CONVENTIONS.md#4-types`
-"newtype every unit and identifier"):
+Shared newtypes (beyond the four the catalogue names, added because every unit and identifier gets a newtype):
 
 ```rust
 pub struct Px(pub u16);
@@ -880,8 +879,8 @@ section 56): the help sits behind the row's ⓘ. It is one or two sentences and 
 
 1. **Round-trip test per domain**: `Domain::default()` -> `toml::to_string` -> `toml::from_str`
    -> `assert_eq!` back to `Domain::default()`, for every domain struct in section 4 (13 tests,
-   one per domain; `CONVENTIONS.md#12-derives-and-serde` "every stored or wire type has a
-   round-trip test").
+   one per domain; every stored or wire type has a
+   round-trip test).
 2. **Lenient-parse table**: one test per type family feeding a bad value and asserting the
    field falls back to default, file otherwise intact —
 
@@ -1203,7 +1202,7 @@ reads one entry. `Describe`, `Get`, `Set` and `Changed` keep their signatures.
   picker becomes the appearance picker component bound to `quire/appearance.toml`); an app
   may still embed the Settings app's rendering of its own schema in-app via the shared
   `SettingsPage` component (built: crate `ds-settings-page`, moved whole from mailo's
-  `settings_window/keys.rs`). It is a crate of its own because it needs `ds` and `ds-settings`,
+  settings_window/keys.rs). It is a crate of its own because it needs `ds` and `ds-settings`,
   which may not name each other. API:
 
   ```rust,ignore
@@ -1342,10 +1341,9 @@ program's own sections move onto the same markers when its schema is passed with
 - `README.md#3-citation-convention`, `README.md#4-canonical-source` (the 2026-09-24 decision
   this whole document exists to satisfy), `README.md#5-proposing-a-change`.
 - `CHECKLIST.md#14-settings`.
-- `CONVENTIONS.md#4-types` (illegal states unrepresentable, no bool in a settings key),
-  `CONVENTIONS.md#12-derives-and-serde` (round-trip, never `deny_unknown_fields`),
-  `CONVENTIONS.md#6-state-effects-and-dependencies` (pure functions; "every value the
-  design docs mark proposed is read from a settings key... never hard-coded").
+- House rules the settings code follows: illegal states unrepresentable, no bool in a settings key,
+  round-trip every stored type, never `deny_unknown_fields`, pure functions, and every value the
+  design docs mark proposed is read from a settings key, never hard-coded.
 - PLAN `~/.claude/plans/vast-toasting-peach.md` "Design: `<ds>` design-system repo" (`ds-settings`
   I/O: `appearance.json` atomic write, `notify` watch, 30 ms debounce, settings portal), "Design:
   `<shell>` repo" (`sill-services`, `dock.json`, `frecency.json`, `Services` context pattern),

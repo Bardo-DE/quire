@@ -110,7 +110,7 @@ Boundary script (stoker `scripts/check-boundary.sh`, porter's form):
 
 Allowed new edges: `porter-infer -> cua-action`; `inferd -> cua-action, vision-prep, model-provider, cua-session, model-catalog, engine-supervisor, model-http, model-openai-compat`.
 
-### 2.4 Dependencies: what joins quire's pinned block first (CONVENTIONS §10)
+### 2.4 Dependencies: what joins quire's pinned block first 
 
 | Dep | Version | For | Note |
 |---|---|---|---|
@@ -200,7 +200,7 @@ pub enum ModelSpace { Image, Grid(GridMax) }               // where a dialect's 
 ```
 
 Conflicts resolved:
-- **(a) Floats.** cua-integration has `LogicalPoint { x: f32 }` and `Scroll.amount: f32`. CONVENTIONS §12 says data is `Eq`. So coordinates are `Coord(u32)` logical px; sub-pixel clicks are meaningless. Scroll is notches or a mapped length.
+- **(a) Floats.** cua-integration has `LogicalPoint { x: f32 }` and `Scroll.amount: f32`. Data is `Eq` (shared rule). So coordinates are `Coord(u32)` logical px; sub-pixel clicks are meaningless. Scroll is notches or a mapped length.
 - **(b) Which pixels.** research-cua-models §5 says "physical screen pixels". cua-integration says window logical px. Window logical px wins: the compositor captures per window, and HiDPI is handled by `Scale120`.
 - **(c) The grid size.** cua-integration says 0-999; the research says 0-1000. So `GridMax` is a parameter of the dialect profile.
 - **(d) `TargetedAction { window }`** is cuad's (area "cua"): models never sees a `WindowRef`.
@@ -338,7 +338,7 @@ pub enum Batching { One, Many }   pub enum Zoom { Absent, Native }   pub enum Su
 
 `ScriptedProvider` (feature `testing`) plays a `Vec<Script>` of events plus an end, and records every `TurnRequest` it was given, so tests can assert on prompt assembly.
 
-**Conflict resolved.** cua-integration writes `Box<dyn CuaSession>`, and research-agents writes `async fn chat -> Stream`. porter CONVENTIONS rule 2 says async seams are `-> impl Future + Send`, and closed sets of implementations are enums, never `dyn`. That rule wins. inferd has `enum Backend { OpenAiCompat(..), Replay(..), ... }` implementing `Provider`. The push sink also avoids a `futures` dependency.
+**Conflict resolved.** cua-integration writes `Box<dyn CuaSession>`, and research-agents writes `async fn chat -> Stream`. porter's rule is that async seams are `-> impl Future + Send`, and closed sets of implementations are enums, never `dyn`. That rule wins. inferd has `enum Backend { OpenAiCompat(..), Replay(..), ... }` implementing `Provider`. The push sink also avoids a `futures` dependency.
 
 ### 3.4 `cua-parse`, `cua-wire`, `cua-session`
 

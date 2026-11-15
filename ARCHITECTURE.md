@@ -95,7 +95,7 @@ anyview, `examples/consumer`) depend on `ds` (+ `ds-shell` for the account and h
 ## 2. Modules inside each crate, in layer order
 
 A module names only modules above it in its crate's list (earlier rows are lower). `lib.rs` holds
-declarations and re-exports. Directories group a concept; role files follow `CONVENTIONS.md` §2
+declarations and re-exports. Directories group a concept; role files are named for their job
 (`model.rs`, `step.rs`, `view.rs`, `style.css`, `tests.rs`).
 
 | Crate | Modules, lowest first |
@@ -649,7 +649,7 @@ be reached from its own output handler. The rules that replace them:
    through the same effect. `send` is for handlers, tasks and effects.
 8. **Tests.** The pure part is a table of `(state, input, at, ctx) -> (state, outputs, wake)`;
    `Elapsed` at each `wake()` drives a machine to rest with no clock. The hooks are tested once,
-   in `ds-conformance/tests/machine.rs`, on the virtual clock (`Clock::Virtual`): each form, a
+   in `ds-conformance/tests/it/machine.rs`, on the virtual clock (`Clock::Virtual`): each form, a
    context read at a timer-driven step, a follow-up send, and an idle machine that runs no timer.
 
 What this does not cover: a machine that must read the wall clock for something other than
@@ -733,7 +733,7 @@ are reached as `ds::components::app::X`, not through the prelude.
 5. Add the name to `ds::prelude` only if a consumer draws it; otherwise it is reached by its
    group path.
 6. Tests: `crates/ds/tests/<name>_ssr.rs` (a `VirtualDom` rendered with `dioxus_ssr`, a golden through
-   `tests/support/golden.rs`, then `ds_lint::markup` filtered to the rule under test), and
+   `ds/tests/it/support/golden.rs`, then `ds_lint::markup` filtered to the rule under test), and
    `crates/ds-conformance/tests/<name>.rs` when it responds to input or time (through `Driver`).
 7. Gallery: `crates/ds-gallery/src/pages/<group>/<name>.rs`, one `Page` registered in
    `registry.rs`. Add the `DESIGN.md` row that names the design section.
@@ -756,7 +756,7 @@ are reached as `ds::components::app::X`, not through the prelude.
    the crate's `KIT.tokens`. Nothing else: CSS emission and the lint vocabulary read `Kits`.
 3. A tuned token (a consumer writes its value inline) sets `KIND = Tuned` and its default is the
    settings key's default (`design/22-SETTINGS.md`).
-4. Tests: `ds-shell/tests/tokens.rs` and sill's `sill-shell-kit/tests/tokens.rs` (every name a scheme or level block sets is declared on
+4. Tests: `ds-shell/tests/it/tokens.rs` and sill's sill-shell-kit/tests/tokens.rs (every name a scheme or level block sets is declared on
    `.ds`); a new token with a raw value fails `ds-lint` by design.
 
 ### Add a motion recipe or a Rust-driven animation
@@ -770,7 +770,7 @@ are reached as `ds::components::app::X`, not through the prelude.
    A symbol effect is an `Anim` row in `recipe_symbol.rs` plus an arm in `symbol/route.rs`
    (`once_anim`, `loop_anim`); a motion inside an SVG (Blitz's stylesheet does not reach there)
    is a gesture in `symbol/pose.rs` and an annotation in `ds-style/src/icon/parts.rs`.
-4. Tests: `ds/tests/motion_drift.rs` (table against CSS), the implementor's `at` at
+4. Tests: `ds/tests/it/motion_drift.rs` (table against CSS), the implementor's `at` at
    `0`, `total/2`, `total` as a table test, and a conformance test with `Clock::Virtual`.
 
 ### Add a lint rule
@@ -804,7 +804,7 @@ are reached as `ds::components::app::X`, not through the prelude.
 
 ### Add an Extension capability
 
-See CONVENTIONS.md, "Add an Extension capability".
+Add a variant to `ds_extensions::Capability` (its word is the manifest's capability name), have `Found::resolve` check and rank entries for it, and add a table test beside the others in `ds-extensions`.
 
 ### Add a document-host capability
 
@@ -826,7 +826,7 @@ See CONVENTIONS.md, "Add an Extension capability".
 
 1. `crates/ds-conformance/tests/<component>.rs`, named for the component (never a work item).
 2. Build `Harness::new(app, viewport_or_config)`, drive with `Harness::send`, read with
-   its query methods; the assertion names the difference the action makes (`CONVENTIONS.md` §8).
+   its query methods; the assertion names the difference the action makes.
 3. Timing on the wall clock uses `settle_until`; virtual-clock tests assert the boundary exactly.
 
 ### Add a gallery page
@@ -837,21 +837,20 @@ See CONVENTIONS.md, "Add an Extension capability".
 ## 8. Test harness
 
 > Test paths below written `tests/<name>.rs` mean `tests/it/<name>.rs`: a crate's integration tests are
-> modules of one executable (`tests/it/main.rs`), and a separate target needs a stated reason
-> (CONVENTIONS.md section 8).
+> modules of one executable (`tests/it/main.rs`), and a separate target needs a stated reason.
 
 | Kind of thing | Test | Where |
 | --- | --- | --- |
 | Pure function or step | table test: `const CASES: &[(Input, Expected)]`, one loop | beside the code |
 | Word, Token, Timeline, Detailed | table over `ALL` / sample instants / `moment_table` | the owning crate |
 | Component markup | SSR render, golden, `ds_lint::markup` | `crates/<crate>/tests/it/<component>_ssr.rs` |
-| Stylesheet | `ds_lint::assert_clean(css, &LintConfig::new(kits))` (`self_lint`) | `ds-shell/tests/self_lint.rs` (sill: `sill-shell-kit/tests/self_lint.rs`) |
+| Stylesheet | `ds_lint::assert_clean(css, &LintConfig::new(kits))` (`self_lint`) | `ds-shell/tests/it/self_lint.rs` (sill: sill-shell-kit/tests/self_lint.rs) |
 | Component behaviour (pointer, keys, focus, time, paint) | `Harness` through `Driver` and `Query` | `ds-conformance/tests/<component>.rs` |
 | Host behaviour (frames, clipboard, edit, drop, spell, PDF) | `Harness` on the real `BlitzHost` | `ds-blitz/tests/<topic>.rs` |
 | Settings | `Store` on `ConfigRoot::Scratch`, `SystemPrefsSource::Fixed` | `ds-settings/tests` |
 | Pixels | `Harness::render`, golden in `tests/snapshots/`, re-blessed only with a reason in the commit message | the owning crate |
-| Content inset (text, glyphs, images 8 px off a painted box edge) | `ds_harness::inset::assert_insets(&harness, &Policy::quire())` | `ds-gallery/src/inset_tests.rs` (every page, light and dark); `ds-harness/tests/inset.rs` (the detector) |
-| A consumer | `examples/consumer/tests/coherence.rs` | `examples/consumer` |
+| Content inset (text, glyphs, images 8 px off a painted box edge) | `ds_harness::inset::assert_insets(&harness, &Policy::quire())` | `ds-gallery/src/inset_tests.rs` (every page, light and dark); `ds-harness/tests/it/inset.rs` (the detector) |
+| A consumer | `examples/consumer/tests/it/coherence.rs` | `examples/consumer` |
 
 The one harness is `ds-harness`: `Harness` implements `Driver` and `DocQuery` over one headless
 Blitz document with the same providers `launch` installs (`ds-blitz::provide_host`, `blitz-kit`
@@ -861,7 +860,7 @@ exactly, a `Wall` test polls with `settle_until` and asserts order. Every harnes
 sizer over a fake window (`use_window_sizer()` is `Some`): it records the sizes asked and answers
 as `with_sizer_ack` says. Tests never touch the real
 system: no real XDG, no portal, no D-Bus, no clipboard, no GPU unless `Backend::Hybrid` is asked
-for. SSR needs no harness: a test renders a `VirtualDom` with `dioxus_ssr` (`crates/ds/tests/support/`).
+for. SSR needs no harness: a test renders a `VirtualDom` with `dioxus_ssr` (`crates/ds/tests/it/support/`).
 `sill` drives its surfaces through the same `Driver` trait once shell-host's headless surface
 implements it (the traits build with `ds-harness` default features off).
 
@@ -931,11 +930,11 @@ the components the design holds under `--s-8`, each with its reason; an app adds
   (HIG guardrails report as warnings); `Profile::Details` adds the details grammar's timing. Consumers read quire by path, so
   a new failing rule breaks every consumer's tests at once: tell their owners before it lands.
 - **Time in `ds*`** is read only through `ds_core::time::{now, since, sleep}`, never
-  `Instant::now()` or `futures_timer` directly (`ds/tests/clock_rule.rs`), so the virtual
+  `Instant::now()` or `futures_timer` directly (`ds/tests/it/clock_rule.rs`), so the virtual
   clock reaches it. Library crates never call `tokio::spawn`; they take a `Spawner`.
 - **Tests run on the virtual clock.** Every test harness names its clock
-  (`HarnessConfig::new(view).with_clock(Clock::Virtual)`; `ds/tests/clock_rule.rs` fails a
-  harness that does not), and a bare `VirtualDom` that needs timers uses `ds/tests/support/dom_time.rs`.
+  (`HarnessConfig::new(view).with_clock(Clock::Virtual)`; `ds/tests/it/clock_rule.rs` fails a
+  harness that does not), and a bare `VirtualDom` that needs timers uses `ds/tests/it/support/dom_time.rs`.
   Several sessions build on one machine, so load averages of 70-120 are normal and a wall-clock
   test fails on a different run each time. Virtual time asserts exact instants (`settle_until`
   returns the instant the timer fired; `assert_eq!` it). `Clock::Wall` is for a test that asserts
@@ -1003,10 +1002,10 @@ Rules:
   re-themes every surface consistently; full selectors are for what tokens cannot express.
 - **Renaming anything on the public selector surface is a breaking change** for the person's
   file: it updates `ds::selectors`, bumps `ds::selectors::SURFACE`, carries both names for one
-  release (`RENAMES`; CONVENTIONS section 16), and the consumer's release notes name it. Everything off the
+  release (`RENAMES`), and the consumer's release notes name it. Everything off the
   table stays freely renamable.
 - **The reload path is the `<style>` element**: Blitz re-parses a `<style>` whose text changes
-  and restyles the document (`ds-blitz/tests/user_style_reload.rs` proves colours, custom
+  and restyles the document (`ds-blitz/tests/it/user_style_reload.rs` proves colours, custom
   property overrides and an emptied sheet), so no host call is involved.
 - **Recipe, expose a new public part**: add the part's class to the component, add its row to
   `ds::selectors`, add a gallery example that restyles it, and add a `lint::user_stylesheet`

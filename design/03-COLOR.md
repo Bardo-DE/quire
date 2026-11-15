@@ -298,18 +298,18 @@ sensible-default legibility floor over blur (FINDINGS "Bar gaps" and the tune wa
 `--shadow-1` inset, section 9). Tint solid = the same tint at alpha .94 or above. Text on every
 material must pass the `material-legible-over-black-and-white` test (`P:369`). Wave 1 measured
 the translucent tints against it (the card's `--ink` at 4.5:1 over pure black and pure white,
-`crates/ds/tests/legibility.rs`) and raised the four that fell short over an *opaque* ground by
+`crates/ds/tests/it/legibility.rs`) and raised the four that fell short over an *opaque* ground by
 the smallest .02 steps that pass: dark Bar .58 to .66 (was 3.63:1 over white), dark Dock .50 to
 .66 (2.81:1), light Widget .50 to .54 (4.04:1 over black), dark Widget .45 to .65 (2.43:1).
 
 Open decision 11 asked how those gates hold over *compositor blur*, where the tint is the whole
 background rather than a wash over an opaque surface. Measured at wave 1's alphas
-(`crates/ds/tests/legibility.rs`), six material/scheme pairs fell short over a pure black or
+(`crates/ds/tests/it/legibility.rs`), six material/scheme pairs fell short over a pure black or
 white backdrop, worst the light Widget at 3.91:1 over black. Settled (2026-09-24), the smallest
 further .02 raises that clear 4.5:1 over blur for every pair: dark Bar .66 to .68, light Dock
 .55 to .59, dark Dock .66 to .68, dark Osd .66 to .68, light Widget .54 to .60, dark Widget .65
 to .67 (Bar light, Popover and Osd light already cleared it). This is a sensible default the
-user asked to be tunable later, not a final measurement; `crates/ds/tests/legibility.rs`'s
+user asked to be tunable later, not a final measurement; `crates/ds/tests/it/legibility.rs`'s
 `the_tinted_chrome_holds_its_ink_over_blur` pins the floor so a retune that drops back below 4.5
 fails it.
 
@@ -319,7 +319,7 @@ reference (design/23-WIDGETS.md section 1.1 M26-M30, measured alpha .48 of a nea
 `rgb(247,248,248)`, fitted over a blurred wallpaper), at the cost of the 4.5:1 small-text rule
 over the worst-case black backdrop — accepted because the widget's own text is large or bold
 (the hero and figure numerals, bold city names), where the accessibility guideline for large
-text is 3:1, not 4.5:1. `crates/ds/tests/legibility.rs` now gates `Material::Widget` (and the
+text is 3:1, not 4.5:1. `crates/ds/tests/it/legibility.rs` now gates `Material::Widget` (and the
 Space-tinted widget card, `CardTint::Space`) at 3:1 instead of 4.5:1, over black and white,
 solid and blurred; every other material keeps the 4.5:1 floor. The light tint drops from .60 to
 .48 (3.86:1 over black, 16.70:1 over white). The dark tint was never measured against the
@@ -364,7 +364,7 @@ Space gradient and `appearance.material_tint_alpha` describe the code that goes.
 `--scrim` (black .22) pushes a peek or a palette back; behind a dialog that asks for a decision
 (the power menu) it is too light. `--scrim-modal` is black at .40 in light and .55 in dark
 (`ColourToken::ScrimModal`, `Scrim { strength: ScrimStrength::Modal }`, `Sheet { scrim }`).
-Gated in `tests/legibility.rs`: the Sheet material's solid tint stands 3.05:1 off the modally
+Gated in `ds/tests/it/legibility.rs`: the Sheet material's solid tint stands 3.05:1 off the modally
 dimmed paper in light (1.89 under `--scrim`), more than under `--scrim` in dark (1.09 against
 1.04, where the sheet's hairline and shadow carry the edge), and `--ink` reads 15.6 and 15.0:1 on
 the sheet in both schemes.
@@ -417,7 +417,7 @@ Why the tint carries the boost: Blitz neither blurs nor saturates what is behind
 (FINDINGS S15, S16), so macOS's vibrancy cannot be reproduced; brightening and saturating the
 tint itself is the part that can. A tinted root (bar, dock, popover panel, OSD, widget) paints the
 Space gradient instead of the tint, which carries its own hue; its frame redraws the inner edge
-and highlight (`--m-inner`) over the gradient. The gates hold: `tests/legibility.rs` measures the
+and highlight (`--m-inner`) over the gradient. The gates hold: `ds/tests/it/legibility.rs` measures the
 boosted tints, over blur and solid, black and white, and all pass.
 
 A squircle corner (`Corner::Squircle(r)`, design/08 section 2.1's `n = 5` superellipse
@@ -583,7 +583,7 @@ read were not among them, and both fell under 4.5 in sill's captures:
 The gate now composites every ground a screen can show before measuring
 (`accent_band::text_grounds`): the card's four grounds; the wash over each; the three materials
 that carry accent text (Popover, Sheet, Toast: `accent_band::TEXT_MATERIALS`) at their default
-tints over the two reference backdrops, black and white (the same two `tests/legibility.rs`
+tints over the two reference backdrops, black and white (the same two `ds/tests/it/legibility.rs`
 holds their own ink over); and the wash over those. The text steps (.01) until it reads on all
 of them, every 5 degrees of hue, weights 0 to 1, both schemes.
 

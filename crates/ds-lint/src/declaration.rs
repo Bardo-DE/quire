@@ -32,7 +32,7 @@ pub(super) const COLOUR_FUNCTIONS: &[&str] = &[
 
 /// The properties a raw duration or a raw easing is actually reachable from: scoping the check
 /// to these properties, rather than any `Nms`/`Ns` token or bare `ease*` ident anywhere, is the
-/// CONVENTIONS §14 "ask what the structure already told you" rule applied to CSS — a property name
+/// "ask what the structure already told you" applied to CSS: a property name
 /// is context we already have, so use it instead of a wider match that could catch an unrelated
 /// value that merely looks the same.
 const DURATION_PROPERTIES: &[&str] = &[

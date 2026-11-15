@@ -97,7 +97,7 @@ pub struct GroupedChoices<'a> {
 pub struct Section(pub String);
 
 /// File-only in v1 (section 5: "Advanced" = no Settings UI control) versus rendered on its
-/// page. Not a `bool`: `CONVENTIONS.md#4-types`.
+/// page. Not a `bool`: a named choice reads better at the call site.
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize)]
 #[serde(rename_all = "snake_case")]
 pub enum Exposure {
@@ -108,7 +108,7 @@ pub enum Exposure {
 }
 
 /// Whether an agent (the companion, through detent's intents) may set a key. Two states, not a
-/// `bool`: `CONVENTIONS.md#4-types`. A key is hands-off unless its program marks it, so a
+/// `bool`, so a call site names the choice. A key is hands-off unless its program marks it, so a
 /// schema written before the mark existed keeps every key hands-off.
 ///
 /// Wire form: the `[[key]]` table of the schema file carries `agent = "settable"` for a

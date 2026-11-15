@@ -14,8 +14,7 @@
 //! `geometry_control`, quire's own marks on Lucide's grid in `geometry_own`
 //!; the named sets are in `sets`.
 //!
-//! No serde: an icon is never stored, and a derive would make it a persisted schema
-//! (`CONVENTIONS.md` section 12).
+//! No serde: an icon is never stored, and a derive would make it a persisted schema.
 
 use shape::Shape;
 

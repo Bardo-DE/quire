@@ -114,7 +114,7 @@ and every other name is at its home path (the root keeps only the stylesheet ass
 | `components/companion/`, `ds-intents/`, `ds-core/vocab.rs` (the companion vocabulary), `ds-shell/confirm/`, `ds-style/tokens/glow.rs`, `ds-style/tokens/timing.rs` (`OrbListen`, `OrbWork`, `OrbAct`) | 30-CATALOGUE §2.13 (proposed), §1.2; 32-COMPANION; 33-AGENT: the companion's presence, prompt, answer cards, plan, replace, runs, activity, memory, served-by chip, the confirmation card and the glow; types frozen, views placeholders, behaviour `todo!()` (FINDINGS "Companion freeze") |
 | `components/content/icon_source.rs`, `ds-style/icon/url.rs` | 08-ICONS §1.5 (settled mechanics): `IconSource`, `ExternalIcon`; `IconUrl` (`data:`/`file:` only) |
 | `ds-style/icon/classify.rs` | 08-ICONS §1.5 step 2: `classify_with(png, limit) -> Result<IconKind::{Symbolic, Image}>`, OKLCH chroma < 0.04 on every half-covered pixel (`ChromaLimit`) |
-| `ds-core/error.rs` | CONVENTIONS §7: `DsError`, the crate's one error enum (a refused icon URL, an unreadable icon PNG) |
+| `ds-core/error.rs` | `DsError`, the crate's one error enum (a refused icon URL, an unreadable icon PNG) |
 | `ds-lint/*` | the coherence rules (ARCHITECTURE.md "Repo rules"); spike S2, S6, S12 rules. 24 `Rule`s: the stylesheet rules (`RawSpacing` and `RawHairline` the Strict-profile spacing and line-width rules), plus `UnstyledClass` and `RawMarkup` for markup; inline custom properties on a `ds`/`ds-*` element and an `<svg>` marked `data-ds-svg` are quire's own, not offences (`ds-lint/inline_style.rs`); `Exception{rule, selector, reason}` in `LintConfig.exceptions`; the vocabulary (variables, keyframes, grammar timing) is `Kits::vocabulary()`, read into `LintConfig::new(&kits)`, and `ds-lint` names no motion crate |
 
 ## `ds`: components
@@ -184,7 +184,7 @@ Props added in the launcher gaps (FINDINGS "Launcher gaps"): `FieldFocus::Contro
 | `ds-settings/src/{portal,environment}.rs` | the plan's `ds-settings` design (portal, `use_environment`); `Environment::tint_alpha` feeds `Ds{tint_alpha}` |
 | `ds-blitz` | the plan's `ds-blitz` design; spike S7/S8 (`data:` net provider), S11 (font registration), S12 (modality); `blitz_host.rs` is `ds::prelude::DocumentHost` on Blitz, which `launch` and the harness wire and `ds_blitz::provide_host()` gives any other Blitz host whole; `measure.rs` and `focus.rs` are its geometry and focus parts; `texture_layer/` is `TextureLayer`, `use_gpu` and the window's `Gpu` (a GPU texture inside the document; FINDINGS "Texture layer"); features `pdf` (PDF output and `PdfFileThumb`, painted by pdfrum's `pdfrum-anyrender` crate, a git dependency pinned to pdfrum rev 61371040), `print` and `spell`; `tokio` is named by `launch/runtime.rs` alone (plus `tokio::sync` channels in the workers) |
 | `ds-harness` | the plan's test driver, `Harness` (`send` takes every `Input`; its query methods read the document; `render_over(Backdrop::Clear)` paints a document's own coverage), `HarnessConfig`, `HarnessError`, `Clock::Virtual`, `snapshot*`, the painters; it builds its document from `ds_blitz::seam`, what a window's is built from; feature `pdf`: `pdf_app`, `Harness::pdf` |
-| `ds-conformance` | `tests/<component>.rs`: every component's behaviour through `ds-harness` on a real Blitz document (`tests/support/probe.rs` is the shared probes and the how-to-write-a-test note); test-only, no code of its own |
+| `ds-conformance` | `tests/it/<component>.rs`: every component's behaviour through `ds-harness` on a real Blitz document (`tests/it/support/probe.rs` is the shared probes and the how-to-write-a-test note); test-only, no code of its own |
 | `ds-gallery` | the plan's gallery (axes, `pages/<group>/<component>.rs`, `--snapshot`) |
 
 The shell-only settings of 22-SETTINGS (§3.4-3.14, `ShellFile`, `GesturesFile`, `Settings`,
@@ -194,14 +194,14 @@ The shell-only settings of 22-SETTINGS (§3.4-3.14, `ShellFile`, `GesturesFile`,
 
 | Module | Implements | Notes |
 | --- | --- | --- |
-| `sill-shell-kit/widget/contract.rs` | 23-WIDGETS §9.2 | `Widget` (one trait per kind), `WidgetKind`, `WidgetContext`, `NoIntent`, `fit` |
-| `sill-shell-kit/widget/timeline.rs`, `sill-shell-kit/widget/use_widget.rs` | 23-WIDGETS §9.2 | `Timeline`, `Dated`, `EntryDate`, `Refresh`, `RefreshAsk`, `REFRESH_FLOOR`; `use_widget` sleeps on `ds::base::time::clock` (virtual in tests) |
-| `sill-shell-kit/widget/card.rs` | 23-WIDGETS §9.3 | `WidgetCard`: the only way a widget is drawn; the card is `WidgetFrame`'s |
-| `sill-shell-kit/widget/registry.rs` | 23-WIDGETS §9.4 | `WidgetRegistry`, `WidgetInfo` (type-erased preview) |
-| `sill-shell-kit/widget/wire.rs` | 23-WIDGETS §9.5 | `WireTimeline`: the out-of-process format (the transport is not built) |
-| `sill-shell-kit/widget/{battery,clock,calendar}.rs`, `sill-shell-kit/widget/views.css` | 23-WIDGETS §4.1, §4.2, §5.2, §9.6 | quire's three widgets and their compositions |
-| `sill-shell-kit/widget/layout.rs` | 23-WIDGETS §9.7 | `WidgetLayout`, `WidgetAt`, `WidgetEdit`, `apply`, `first_free` |
-| `sill-shell-kit/widget/gallery.rs`, `sill-shell-kit/widget/gallery.css` | 23-WIDGETS §9.7 | `WidgetGallery` ("Edit Widgets"), `GalleryWords` |
-| `sill-shell-kit/catalog/placement.rs` | 23-WIDGETS §9.1 | `Placed`, `Placements`, `PlacementId`: placements as data, generic over kind, size and position |
+| sill-shell-kit/widget/contract.rs | 23-WIDGETS §9.2 | `Widget` (one trait per kind), `WidgetKind`, `WidgetContext`, `NoIntent`, `fit` |
+| sill-shell-kit/widget/timeline.rs, sill-shell-kit/widget/use_widget.rs | 23-WIDGETS §9.2 | `Timeline`, `Dated`, `EntryDate`, `Refresh`, `RefreshAsk`, `REFRESH_FLOOR`; `use_widget` sleeps on `ds::base::time::clock` (virtual in tests) |
+| sill-shell-kit/widget/card.rs | 23-WIDGETS §9.3 | `WidgetCard`: the only way a widget is drawn; the card is `WidgetFrame`'s |
+| sill-shell-kit/widget/registry.rs | 23-WIDGETS §9.4 | `WidgetRegistry`, `WidgetInfo` (type-erased preview) |
+| sill-shell-kit/widget/wire.rs | 23-WIDGETS §9.5 | `WireTimeline`: the out-of-process format (the transport is not built) |
+| `sill-shell-kit/widget/{battery,clock,calendar}.rs`, sill-shell-kit/widget/views.css | 23-WIDGETS §4.1, §4.2, §5.2, §9.6 | quire's three widgets and their compositions |
+| sill-shell-kit/widget/layout.rs | 23-WIDGETS §9.7 | `WidgetLayout`, `WidgetAt`, `WidgetEdit`, `apply`, `first_free` |
+| sill-shell-kit/widget/gallery.rs, sill-shell-kit/widget/gallery.css | 23-WIDGETS §9.7 | `WidgetGallery` ("Edit Widgets"), `GalleryWords` |
+| sill-shell-kit/catalog/placement.rs | 23-WIDGETS §9.1 | `Placed`, `Placements`, `PlacementId`: placements as data, generic over kind, size and position |
 | `sill-shell-kit/battery/device_glyph.rs`, `sill-shell-kit/battery/device_forms.rs` | 23-WIDGETS §4.4 | `DeviceGlyph`, `Device`: the filled device set as data |
-| `sill-shell-kit/widget/slot.rs`, `sill-shell-kit/widget/frame.css` (lift) | 23-WIDGETS §9.8 | `WidgetSlotGuide`; `Lift` on the frame |
+| sill-shell-kit/widget/slot.rs, sill-shell-kit/widget/frame.css (lift) | 23-WIDGETS §9.8 | `WidgetSlotGuide`; `Lift` on the frame |

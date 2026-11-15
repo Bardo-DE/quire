@@ -1,7 +1,7 @@
 //! `#[settings(...)]` attribute parsing, on the struct (container) and on each field.
 //!
 //! Kept apart from codegen so the error path — every malformed attribute the derive can be
-//! given — is unit-testable without expanding a whole macro (`CONVENTIONS.md#8-tests`: table
+//! given — is unit-testable without expanding a whole macro (tests are table
 //! driven, one case per row). `design/22-SETTINGS.md` section 9.1 is the grammar these parse.
 
 use proc_macro2::Span;

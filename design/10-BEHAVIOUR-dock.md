@@ -378,7 +378,7 @@ hiding:  y_off(t) = D * e_exit(t / 500 ms)
 ## 10.6 Configuration
 
 Settings app keys, stored in `~/.config/sill/settings.toml` under `dock` (`22-SETTINGS.md` is the full list) (pinned items stay in
-`~/.config/sill/layout.toml` `[[dock]]`, built in sill 848a20a7; the old `dock.json` is read once and carried over). Two-state values are enums, not bools (CONVENTIONS §4).
+`~/.config/sill/layout.toml` `[[dock]]`, built in sill 848a20a7; the old `dock.json` is read once and carried over). Two-state values are enums, not bools.
 
 | Key | Type | Default | Range | Status |
 | --- | --- | --- | --- | --- |

@@ -150,7 +150,7 @@ show the cards opaque; the translucent look is the desktop's background mode and
 editing mode.
 
 **What quire paints (the conflict, resolved 2026-09-26, "relax the contrast then").** The
-legibility gate (`material-legible-over-black-and-white`, `tests/legibility.rs`) needs the
+legibility gate (`material-legible-over-black-and-white`, `ds/tests/it/legibility.rs`) needs the
 card's `--ink` at 4.5:1 over a black and a white backdrop, and the Space-tinted card
 (`CardTint::Space`) shares the tint's alpha; the lowest light alpha that passes both at 4.5:1 is
 .60 (at .58 preset 2's stop `#f3dcd8` falls to 4.43:1 over black), which the vibrancy pass
@@ -162,7 +162,7 @@ accessibility guideline for large text is 3:1, not 4.5:1 (design/03-COLOR.md sec
 light tint takes the measured colour and alpha exactly, `rgb(247,248,248)` at **.48**, 3.86:1
 over black and 16.70:1 over white once boosted, clearing 3:1 with margin. The dark scheme was
 not measured against the reference, so it is raised only as far as the relaxed 3:1 floor needs
-across every gate `tests/legibility.rs` runs: the flat dark tint alone clears 3:1 at .53
+across every gate `ds/tests/it/legibility.rs` runs: the flat dark tint alone clears 3:1 at .53
 (3.09:1 over white), but the Space-tinted card's darkest preset stop (preset 2's `#291c1a`) needs
 .55 to clear it with margin (3.12:1 over white); dark keeps .55 of the dark paper. Some widget
 text sits below the WCAG large-text size even so; section 4.3 lists it. The x1.8 saturation
@@ -355,7 +355,7 @@ light card nearly opaque. Rendered side by side: `tools/progress/shots/widgets-f
 title-options-{light,dark}.png`. **Branch default: (b)**, the simpler (one stylesheet rule, no
 change to the card or the accent band): `.ds-widget[data-host=desktop] .ds-month-title,
 .ds-month-weekday { color: var(--ink-soft) }`. The busy dots keep `--accent-text`, a non-text
-mark gated at 3:1 (3.30:1 worst). `tests/legibility.rs` guards (b)'s measured floor (3.8 light,
+mark gated at 3:1 (3.30:1 worst). `ds/tests/it/legibility.rs` guards (b)'s measured floor (3.8 light,
 4.5 dark, every preset) and the dots at 3:1; the user picks.
 
 **Small text over a see-through card.** Not every widget element clears the WCAG large-text
@@ -381,7 +381,7 @@ with a Gaussian of **sigma 22 logical pixels** (M26): 44 device pixels at 2x. On
 blurs by a dual-Kawase pass count or a "strength" (the compositor's `frosted` theme value), pick the
 setting whose blur of a sharp edge spreads 10-90 % over about 56 logical pixels (2.56 sigma). The
 reference also raises the saturation of what shows through by about 1.8 (M29, low confidence);
-the tint cannot do that (it only mixes), so it is a compositor gap: `docs/compositor-gaps.md` in sill
+the tint cannot do that (it only mixes), so it is a compositor gap: docs/compositor-gaps.md in sill
 should carry "saturation x1.8 inside the widget's blur region". Blur on the desktop widget is a
 choice the shell may skip: the reference's desktop card in its editing mode shows no blur at all
 (M30), and the gallery's "Compositor blur" wall (the Widget reference page) shows the tint over
@@ -683,7 +683,7 @@ pub struct WidgetContext<I> { pub size: WidgetSize, pub host: WidgetHost, pub wa
   with a timeline already due cannot spin the host. It wakes for nothing else: a pushed widget
   costs no frame between pushes (the idle-frame rule). A new timeline (by value) replaces the
   old at once; an equal one passed again changes nothing. Proven on the virtual clock
-  (`ds-conformance/tests/widget_timeline.rs`).
+  (sill's ds-conformance/tests/widget_timeline.rs).
 - **A size a widget does not draw** is never asked of it: `fit::<W>(size)` holds it to the first
   of `W::sizes()`.
 
@@ -826,14 +826,14 @@ use, no frame-accurate recording found).
   (`--line` fill and hairline) in the card's corner, faded in (`a-fade`) as the drag reaches the
   cell, `aria-hidden`. The host places it at the snap cell; quire draws it.
 
-Both settle to zero frames (`ds-conformance/tests/widget_edit.rs`, on the virtual clock).
+Both settle to zero frames (sill's ds-conformance/tests/widget_edit.rs, on the virtual clock).
 
 **Leaving (sill G423, 2026-09-28).** A desktop widget removed in Edit Widgets used to vanish in a
 frame. `WidgetCard { shown: Shown::Hidden, on_hidden }` (and `WidgetFrame`) plays the
 card's exit through `Presence` (design/30 section 1.3: a fade over `--t-quick`, `Exit::Fade`), takes no
 pointer (`data-presence="leaving"`), and calls `on_hidden` once at the exit's settle. The host keeps
 drawing the removed card until then and drops it there; passing `Shown::Visible` again before then takes
-the exit back and `on_hidden` never runs (`ds-conformance/tests/widget_card_presence.rs`). `CardPresence` and
+the exit back and `on_hidden` never runs (sill's ds-conformance/tests/widget_card_presence.rs). `CardPresence` and
 the `widget-out` shrink are gone.
 
 ### 9.9 What sill changes

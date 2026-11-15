@@ -50,7 +50,7 @@ that rev.
   0600 in `$XDG_RUNTIME_DIR/quire-print` (else the temp directory), and the next print sweeps
   files older than a day; `xdg-open` returns before the viewer has read it, so no earlier
   delete is safe.
-- **Sibling `[patch]` for blitz-kit still in the root `Cargo.toml` (QUIRE-24).** CONVENTIONS wants
+- **Sibling `[patch]` for blitz-kit still in the root `Cargo.toml` (QUIRE-24).** The repo rules want
   it in the work dir above the siblings; moving it needs a `.cargo/config.toml` outside this repo
   and a `Cargo.lock` refresh against the pinned git rev.
 - **`WindowSizer::request_size` on Wayland (fixed on `lane/wayland-resize`, live check not run).**
@@ -80,7 +80,7 @@ that rev.
 - **Lower crates' CSS names variables the shell declares.** `ds-motion`'s keyframes read
   `--osd-dy`, `--banner-dx` and `--banner-dy`, and `ds-style`'s shapes read `--dock-floor`, all
   declared by `ds-shell`'s kit, so the stylesheet of `ds` alone (`ds::stylesheet()`) lints with
-  `UndeclaredVar` and only `ds_shell::stylesheet()` lints clean (`ds-shell/tests/self_lint.rs`).
+  `UndeclaredVar` and only `ds_shell::stylesheet()` lints clean (`ds-shell/tests/it/self_lint.rs`).
   Nothing under `ds` alone draws the OSD, the banners or the dock floor, so the reads are inert
   there. Ends when the keyframes and the floor shape move to `ds-shell`'s own sheets.
 - **Motion and interaction primitives of step 4a.3 have consumers still to move.** `Swipe` keeps its own `swipe_damping`
@@ -126,7 +126,7 @@ Upstream (pinned around; re-check at every toolchain bump):
 - **`get_client_rect` borrows the document mutably** when a shared borrow would do, which is why
   rect reads can collide with the renderer ("Bar gaps"). Upstream report material.
 - **Hit test in an inline formatting context** returns the parent, not an atomic inline
-  (`inline-flex`) Button ("Polish pass"). `crates/ds-conformance/tests/button_click.rs` keeps the failing
+  (`inline-flex`) Button ("Polish pass"). `crates/ds-conformance/tests/it/button_click.rs` keeps the failing
   shape as an ignored reproduction for an upstream report.
 - **Paint and hit order of `z-index: auto` positioned boxes** is ranked per parent, not across
   the stacking context as CSS 2.1 Appendix E step 8 says ("Hit testing"). The fix (hoist them
@@ -341,8 +341,7 @@ Open items:
   one above it. `ContextModel` is two fields; its real shape waits for the context fill
   (design/agent/SPEC.md, Q-P7).
 - **Orb periods and sizes are proposed.** `OrbListen` 12 s, `OrbWork` 8 s, `OrbAct` 5 s (`Hold`
-  tokens), and the size ladder 14/16/20/40/192 are the freeze's proposals. CONVENTIONS section 6
-  says a proposed value is a settings key; none is added because the user's design review comes
+  tokens), and the size ladder 14/16/20/40/192 are the freeze's proposals. a proposed value would be a settings key; none is added because the user's design review comes
   first. Ends when the user sets the values or asks for keys.
 - **`TextField` and `CommandPalette` are untouched.** `prompt_host` and `FieldMode` are frozen; the
   props pass-through is the quire fill.
@@ -436,7 +435,7 @@ anyrender_vello_hybrid) as a `DioxusDocument` driven with `resolve(t)`, `poll` a
 
 ## CSS `filter`
 
-Measured by `ds-blitz/tests/css_filter.rs`: one swatch per function, and per filter list, beside an
+Measured by `ds-blitz/tests/it/css_filter.rs`: one swatch per function, and per filter list, beside an
 unfiltered control, read back from the pixels of each backend (the hybrid cases skip where no GPU
 adapter opens).
 
@@ -476,7 +475,7 @@ adapter opens).
 
 - `conic-gradient(from calc(var(--a) * 2) at 25% 70%, ...)` with transparent stops paints and
   turns with the variable; `mask-image: radial-gradient(...)` masks; several layered conics under
-  `border-radius` clip to the circle (`ds-conformance/tests/voice_orb.rs`).
+  `border-radius` clip to the circle (`ds-conformance/tests/it/voice_orb.rs`).
 - `@property --angle` with `@keyframes { to { --angle: 360deg } }` animates a conic gradient on the
   headless harness exactly as a `rotate()` keyframe does (`registered_property_animation.rs`); not
   measured in a window. The voice orb drives its turn from Rust regardless (design/30 `VoiceOrb`).
@@ -731,7 +730,7 @@ own caret and selection. The route needs no Blitz fork.
   handler that stops a click or prevents its default calls `focus::click::kept_click` last: with
   the default left to run it goes through `ClickFocusHost`; with the default prevented,
   `ClickFocusHost::press` gives the nearest focusable element from the pressed one up the keyboard at
-  once, as a pressed button has it in a browser. `crates/ds/tests/kept_click_rule.rs` fails on a
+  once, as a pressed button has it in a browser. `crates/ds/tests/it/kept_click_rule.rs` fails on a
   component `onclick` that stops a click without it.
 - **Removal sends the focus nowhere.** `process_removed_subtree` blurs a removed focused node and
   sets the focus to `None` (hover and active retarget to a surviving ancestor; focus does not).
@@ -975,8 +974,7 @@ on a machine other builds were also using, so about +-10 ms).
   60 to 68 ms against 13 ms on Vulkan alone: the renderer's `WGPUContext` passes `display: None`,
   so the GL backend can never produce an adapter on Linux (`WGPU_BACKEND=gl` panics with no
   adapter) and its probe is the whole difference. quire cannot narrow the backends: the renderer
-  reads them from `WGPU_BACKEND` only, and `std::env::set_var` is unsafe and forbidden
-  (CONVENTIONS section 2).
+  reads them from `WGPU_BACKEND` only, and `std::env::set_var` is unsafe and forbidden.
 - Tried and dropped, no gain beyond noise (+-10 ms): a thread that loads the system fonts while
   the main thread builds the document; a thread that creates a `wgpu::Instance` and an adapter at
   the start of `launch`, kept alive (the main thread's own instance then waits on the same
@@ -1062,7 +1060,7 @@ on a machine other builds were also using, so about +-10 ms).
   Button alone, beside a placeholder, or beside inline text) the parent is an inline formatting
   context, and blitz-dom's `Node::hit` returns the parent, so the click goes to the parent. A
   block sibling or a flex parent gives the Button its own box. Every quire container is a flex
-  row; a consumer puts a lone button in one. `crates/ds-conformance/tests/button_click.rs` pins both working
+  row; a consumer puts a lone button in one. `crates/ds-conformance/tests/it/button_click.rs` pins both working
   shapes and keeps the failing one ignored.
 
 ### Hover under a resting pointer
@@ -1179,7 +1177,7 @@ on a machine other builds were also using, so about +-10 ms).
 
 - **Virtual is the default (2026-10-06).** Several sessions build on one machine, so load averages of
   70-120 on 32 cores are normal and any wall-clock test failed on a different run each time. Every
-  test harness now names its clock and runs on `Clock::Virtual` (`ds/tests/clock_rule.rs` enforces
+  test harness now names its clock and runs on `Clock::Virtual` (`ds/tests/it/clock_rule.rs` enforces
   it); the bullets below describe the `Clock::Wall` exceptions. The exceptions are the tests that
   assert real time: Blitz's wall-clock double click (`keep_focus`, `window_frame_controls`), the
   split-clock repro (`cancelled_animation`), and the clock's own tests in `ds-harness/tests`. Tests
@@ -1198,7 +1196,7 @@ on a machine other builds were also using, so about +-10 ms).
   *before* the action that starts the timer (`show()`/`click()` call `advance` themselves).
   Samples of a continuous, monotonic value on the animation clock (`resolve(t)`) are safe.
 - **The virtual clock.** `ds::base::time::clock` owns time (`now()`, `since()`, `sleep()` read a thread-local
-  clock, the wall clock by default); `tests/clock_rule.rs` forbids a direct `Instant::now()` or
+  clock, the wall clock by default); `ds/tests/it/clock_rule.rs` forbids a direct `Instant::now()` or
   `futures_timer` in ds. `HarnessConfig::with_clock(Clock::Virtual)` installs a `VirtualClock`;
   `advance(d)` resolves at the current instant first, then stops at each timer due before the
   end in order, running its tasks and renders and resolving CSS at that instant, and never waits
@@ -1219,7 +1217,7 @@ on a machine other builds were also using, so about +-10 ms).
   key can switch it off; the muted avatar's `saturate(.55)` is computed in Rust.
 - **Tint alphas** are design/03 section 17.2's, each the smallest `.02` step at which every
   material's ink holds 4.5:1 over pure black and pure white, with and without compositor blur
-  (`tests/legibility.rs`); the worst margin is the dark Widget, preset 2, over white, 4.551:1.
+  (`ds/tests/it/legibility.rs`); the worst margin is the dark Widget, preset 2, over white, 4.551:1.
 - **Frame layers.** A tinted chrome root draws the window's two gradient layers and grain inside
   one `.ds-frame` at `--m-frame-alpha` (the material's tint alpha scaled by the settings key)
   with blur, .94 without; the group's background is the current gradient, so it stays opaque
@@ -1330,7 +1328,7 @@ What Blitz at the pinned rev paints (48 px, headless):
 | Noto Emoji (monochrome), named | monochrome outlines | |
 
 - **COLRv1 needs no change in quire**: glifo interprets the paint graphs (layers, gradients,
-  clips) on either backend. `ds-blitz/tests/colour_emoji.rs` keeps it as a regression test (skipped where
+  clips) on either backend. `ds-blitz/tests/it/colour_emoji.rs` keeps it as a regression test (skipped where
   the font is not installed).
 - **Bitmap colour emoji draw since vello fork 5379e4a8.** glifo decodes `sbix` and `CBDT` glyphs
   only with its `png` feature, and vello_hybrid sampled only images uploaded beforehand, so the
@@ -1338,7 +1336,7 @@ What Blitz at the pinned rev paints (48 px, headless):
   vello_hybrid now uploads a frame's pixmap images before drawing it and frees them after, and
   turns `png` on by default (which turns it on for vello_cpu's glifo too). This is what draws
   emoji on a Mac at all: Apple Color Emoji is `sbix`, and macOS has no COLR emoji face.
-  `ds-blitz/tests/colour_emoji.rs` `the_macs_bitmap_emoji_paint_in_colour` keeps it on vello_cpu;
+  `ds-blitz/tests/it/colour_emoji.rs` `the_macs_bitmap_emoji_paint_in_colour` keeps it on vello_cpu;
   the hybrid path needs a GPU adapter to test.
 - **Stack order.** Noto Color Emoji's cmap maps U+0020, the digits, `#` and `*` (keycap bases),
   and parley takes each cluster from the first family in the stack that maps it. So the text
@@ -1347,12 +1345,12 @@ What Blitz at the pinned rev paints (48 px, headless):
   nothing for "2#". `--font-emoji` (`"Inter","Noto Color Emoji",system-ui,sans-serif`) and
   `.ds-emoji-text` are for emoji content only (the emoji grid, the preview glyph); the text
   stacks name no emoji face while shell-host lacks quire's faces (Open items).
-  `ds-blitz/tests/text_stack_fonts.rs` lays the stack out under both font contexts: under shell-host's,
+  `ds-blitz/tests/it/text_stack_fonts.rs` lays the stack out under both font contexts: under shell-host's,
   "00:22" is 84 px against 45 for Inter and 41 for system-ui.
 - **Unnamed-stack emoji (anyview report, 2026-10-14).** A ZWJ family drew as four monochrome
   faces and a flag as two boxes in a window whose stack names no emoji family. Cause: fallback,
-  not the renderer. glifo paints COLRv1 (`glifo/src/colr.rs`, `vello_tests/tests/emoji.rs`
-  `big_colr`) and the named-family rows above prove it. Parley (`shape/mod.rs`, `select_font`)
+  not the renderer. glifo paints COLRv1 (glifo/src/colr.rs, vello_tests/tests/emoji.rs
+  `big_colr`) and the named-family rows above prove it. Parley (shape/mod.rs, `select_font`)
   asks the element's stack, then the `emoji` generic, and `system-ui`/`sans-serif` expand to the
   whole fontconfig match list (`fc-match -s`), which reaches Symbola before the `emoji` generic
   is consulted. Fix: `ds_blitz::font_context` (`quire-emoji`, `face.rs`; shared with temor's terminal) detects the first COLR family of
@@ -1477,7 +1475,7 @@ the decisions and what was verified:
   being a `RenderContext` with the harness device, so no harness code draws the layer. The harness
   opens the device before the app's first render and provides a `Gpu` already attached to it
   (`Harness::gpu()`, `use_gpu()` agree), which is how a test makes textures first.
-  `crates/ds-harness/tests/texture_layer.rs` checks pixels on llvmpipe (GL; no Vulkan ICD in this
+  `crates/ds-harness/tests/it/texture_layer.rs` checks pixels on llvmpipe (GL; no Vulkan ICD in this
   sandbox) and skips with no adapter. The CPU painter has no device: a layer draws nothing there.
 - **What the renderer's texture paint cannot do, and how it is done.** `draw_texture_rects` always
   samples the whole texture and ignores extend modes. A fit and a source rectangle are therefore
@@ -1805,7 +1803,7 @@ Open:
 - Open: a chord that holds Shift with a symbol key reaches the resolver as the shifted symbol
   (`!` for Shift+1); a `RawKey` carries the physical `code` for the base key. Letters and digits without Shift,
   the whole conventions table, and Primary+`[` are unaffected.
-- Open: the Blitz fork's text actions (`ACTION_MODS` in the fork's `util.rs`) still accept Ctrl and
+- Open: the Blitz fork's text actions (`ACTION_MODS` in the fork's util.rs) still accept Ctrl and
   Super on every platform and ignore Meta; the later fork lane feeds them from the keymap. Until then
   Ctrl+A/Z/C/V work in a text field on our desktop through Blitz, not through the keymap.
 - Closed 2026-10-19: the GNOME source runs `dconf dump /` itself, when the source is made and on the
@@ -2125,7 +2123,7 @@ apps (first detent's Settings, "install llama.cpp" with a copyable command) reus
 - **`ds::components::controls::copy_state::CopyState`** (`Idle`, `Copied`, default `Idle`, `Word`) moved from ds-shell. The path
   `ds_shell::accounts::model::CopyState` still resolves: it is now `pub use` of the `ds` type, same variants and derives, so no public
   ds-shell path changed. The type is the same one for `CopyAction`, `ShowCode`, `BrowserWait` and `HelperSheet`.
-- **Deleted in ds-shell:** `helpers/command.rs` (`pub(crate) CommandLine`) and its CSS in `helpers/style.css`. `CopyAction` stays: it is the
+- **Deleted in ds-shell:** helpers/command.rs (`pub(crate) CommandLine`) and its CSS in `helpers/style.css`. `CopyAction` stays: it is the
   accounts sheets' Copy Link / Copy Code button, not the command line's. `CommandLine` does not use it (it draws `ds`'s `Button` with the same
   props `Action` passed, so the button markup is byte for byte the old one).
 - **`ds_helpers::OsRelease`** (`os_release.rs`): `parse(&str)` gives `id` (lower case), `id_like` (words, lower case) and `version_id`
@@ -2204,7 +2202,7 @@ apps (first detent's Settings, "install llama.cpp" with a copyable command) reus
 
 ## Type rules (2026-10-28)
 
-CONVENTIONS section 4 now follows the owner's plain-Rust-first rule: `bool` is fine for fields, returns
+The shared type rule now follows the owner's plain-Rust-first rule: `bool` is fine for fields, returns
 and private functions; an enum earns its place only at a public `f(true, false)`, a realistic third state
 or a persisted value; newtypes only with a rule; one fact, one type; two-way outcomes are `Result` or
 `Option`; growing sets are data. Two-variant enums that were `bool` or one fact twice are gone from the

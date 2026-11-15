@@ -12,8 +12,7 @@
 //!
 //! The table is versioned: [`SURFACE`] is bumped when a listed name is renamed or removed. A
 //! renamed part keeps its old name for one release ([`RENAMES`]); an app lists its own parts in
-//! an [`AppSelectors`] table in the same format (CONVENTIONS, "Rename a public part" and
-//! "Publish your app's styleable parts").
+//! an [`AppSelectors`] table in the same format (ARCHITECTURE.md "Repo rules").
 //!
 //! A component's public parts are added here in the change that gives it the part
 //! (a gallery example that restyles it and a `lint::user_stylesheet` case that accepts it come

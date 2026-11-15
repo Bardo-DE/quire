@@ -1,5 +1,5 @@
 //! An app's published style parts as data: what a person's stylesheet may rely on in that app
-//! (`ds::selectors::AppSelectors`, CONVENTIONS section 16), installed beside its settings schema
+//! (`ds::selectors::AppSelectors`), installed beside its settings schema
 //! as `$XDG_DATA_DIRS/quire/selectors/<app>.toml`, so Settings can check a stylesheet against
 //! every app's parts without linking any app (customization design section 7.3).
 //!

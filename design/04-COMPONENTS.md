@@ -3313,7 +3313,7 @@ content: `Small` draws compact; `Medium`, `Large` or no frame draws regular. `Re
 | Title | the UI face at `--fs-micro` 9.5, `--fw-caps` (600), tracked, upper, `--accent`; its left edge 4 in (`--s-4`), where a two-digit first column's number starts | the reference: month name top left in the accent, small caps weight |
 | Header | 14 high, no gap under it; the step buttons are plain 14 px `button.ds-month-step` round an 11 px glyph (`--ink-faint`, `--surface-2` under the pointer, squish pressed), since the Tool button's 28 x 26 would take a fifth of the height | Q190 |
 | Week numbers | never drawn, whatever `weeks` says (`data-weeks=hide`): a column would not fit | Q190 |
-| Snapshots | `tools/progress/shots/gallery/calendar-compact-{before,after}-{5wk,6wk}-{light,dark}-{1x,4x}.png`, from `ds-conformance/tests/month_grid_shots.rs` (`QUIRE_CAL_SHOTS=<dir> QUIRE_CAL_TAG=<tag>`) | |
+| Snapshots | `tools/progress/shots/gallery/calendar-compact-{before,after}-{5wk,6wk}-{light,dark}-{1x,4x}.png`, from sill's ds-conformance/tests/month_grid_shots.rs (`QUIRE_CAL_SHOTS=<dir> QUIRE_CAL_TAG=<tag>`) | |
 
 **States.**
 
@@ -3397,7 +3397,7 @@ and `svg.ds-clock-pin`. Every vector is on `currentColor` with `data-ds-svg`. Di
 `--font-display` 800 tabular (`09:41`, `09:41:07` with seconds), at `--fs-widget-hero` in a Small
 frame and `--fs-subject` elsewhere, bumping on each new minute; a sun (`svg.ds-clock-sun`,
 `--warn`) or moon (`svg.ds-clock-moon`, `--ink-faint`) before the city. The hand angles are pure
-(`sill-shell-kit/clock/angles.rs`): hour `30 x (h mod 12) + m / 2 + s / 120` degrees, minute `6 x m + s / 10`,
+(sill-shell-kit/clock/angles.rs): hour `30 x (h mod 12) + m / 2 + s / 120` degrees, minute `6 x m + s / 10`,
 second `6 x s`.
 
 **BatteryLevel**. `BatteryLevel { level:
@@ -3650,8 +3650,8 @@ steadily; Wince swaps in `EmojiId::WRONG` (confounded) once through, Happy `Emoj
 still (design/25 section 5). Reduced motion, or `playback: EmojiPlayback::Still` (a picker's
 grid): still frames only.
 
-**Tests.** `sill-shell-kit/tests/emoji_ssr.rs` (goldens, lint), `sill-shell-kit/emoji/tests.rs` (sheets,
-manifest, the script's idle rule, the mood mapping), `ds-conformance/tests/emoji_animation.rs` (frames
+**Tests.** sill-shell-kit/tests/emoji_ssr.rs (goldens, lint), `sill-shell-kit/emoji/tests.rs` (sheets,
+manifest, the script's idle rule, the mood mapping), sill's ds-conformance/tests/emoji_animation.rs (frames
 advance, rest at 21 s, idle's rests, the wince swap, each mood as a `UserPortrait`, Reduced).
 
 ### 44a. UserPicture, UserPortrait and UserPicturePicker (2026-09-26; design/25 section 7)
@@ -3694,9 +3694,9 @@ click or an arrow key (the emoji grid's `grid_step`: Left and Right wrap rows, U
 inside) calls `onpick` with the new choice; `choice` is the caller's and marks one cell (none for
 `Auto` or `Photo`). Nothing in the picker plays.
 
-**Tests.** `sill-shell-kit/tests/user_picture_ssr.rs` (goldens of the letter, the emoji at rest, the photo
+**Tests.** sill-shell-kit/tests/user_picture_ssr.rs (goldens of the letter, the emoji at rest, the photo
 and the picker; lint; the serde round trip; the `resolve_picture` table), `ds/src/components/
-user_picture/picker.rs` (cells and marks), `ds-conformance/tests/lock_switcher.rs` (the emoji's moods
+user_picture/picker.rs` (cells and marks), sill's ds-conformance/tests/lock_switcher.rs (the emoji's moods
 in the lock prompt; the letter's beat).
 
 ### 45. PdfThumb and PdfFileThumb (a PDF's first page; sill M9 launcher v2, 2026-09-26; values proposed)
@@ -3771,7 +3771,7 @@ most `QUEUE_DEPTH` (8) jobs wait, and a job pushed out of a full queue is asked 
 encrypted file that opens with the empty user password draws; one that needs a password is
 `Failed(Locked)`.
 
-**Tests.** `ds/tests/pdf_thumb_ssr.rs` (a golden of each state, lint), `ds/src/components/
+**Tests.** `ds/tests/it/pdf_thumb_ssr.rs` (a golden of each state, lint), `ds/src/components/
 pdf_thumb.rs` (the sheet's fit), `ds-blitz/tests/pdf_thumb.rs` (a generated PDF rasterised in
 its colour and aspect, the cache hit and the mtime miss, the failures, a document painting the
 page), `ds-blitz/tests/pdf_thumb_queue.rs` (20 quick requests run at most 4 rasters and show the
@@ -3831,8 +3831,8 @@ The selection is always the caller's (`selected`, `on_select`); from none, the f
 for cell 0.
 
 **Tests.** `ds/components/lists/emoji_grid/nav.rs` (the moves), `ds/components/menus/palette/palette_stops.rs`
-(entering and leaving in a palette), `ds/tests/launcher_parts_ssr.rs` (`grid-in-palette`,
-`grid-alone`), `ds-conformance/tests/palette_grid_pane.rs` (the palette walk and the grid on its own).
+(entering and leaving in a palette), `ds/tests/it/launcher_parts_ssr.rs` (`grid-in-palette`,
+`grid-alone`), `ds-conformance/tests/it/palette_grid_pane.rs` (the palette walk and the grid on its own).
 
 ### 47. PreviewPane (sill M9 launcher v2, Q292, 2026-09-26; values proposed)
 
@@ -3928,10 +3928,10 @@ Operation` is the load the media waits on (Q371): `use_pending` with a Spin ring
 section 13.3.9's keys are the caller's, through the palette's `claim`, section 49), so `focused`
 draws which action the caller's Tab has reached. A click on an action calls `onaction(i)`.
 
-**Tests.** `ds/tests/launcher_parts_ssr.rs` (`pane-*`, `palette-aside`), `ds-conformance/tests/
+**Tests.** `ds/tests/it/launcher_parts_ssr.rs` (`pane-*`, `palette-aside`), `ds-conformance/tests/
 palette_grid_pane.rs` (the card widening over a window, the results narrowing in a surface, the exit
 settling before `on_hidden`), `ds-blitz/tests/pdf_thumb.rs` (a pane drawing a PDF through
-`use_pdf_page`), `ds-conformance/tests/launcher_pane_cues.rs` (each moment, Reduced, 0 frames).
+`use_pdf_page`), `ds-conformance/tests/it/launcher_pane_cues.rs` (each moment, Reduced, 0 frames).
 
 ### 48. RowShape: file and clipboard rows in the palette (sill M9 launcher v2, Q290, 2026-09-26; values proposed)
 
@@ -3966,7 +3966,7 @@ pub enum ClipBody { Text { excerpt: String, lines: u8 }, Image { src: ImageSourc
 A plain row's markup is unchanged: no `data-shape`, no `ds-menu-when`.
 
 **Tests.** `ds/components/lists/row/shape.rs` (the picture's box, the line budget),
-`ds/tests/launcher_parts_ssr.rs` (`row-file`, `row-clip`).
+`ds/tests/it/launcher_parts_ssr.rs` (`row-file`, `row-clip`).
 
 ### 49. PaletteGroup, "Show More" and the key claim (sill M9 launcher v2, Q294 and Q299, 2026-09-26)
 
@@ -4041,10 +4041,10 @@ render; the callback asks at the moment with the caret in hand. It is a new prop
 `onkey`, so no existing `onkey` changes.
 
 **Tests.** `ds/components/menus/palette/palette_stops.rs` (the stop order and the moves),
-`ds/host/caret.rs` (the caret's place), `ds/tests/launcher_parts_ssr.rs` (`show-more`,
-`show-more-selected`), `ds-conformance/tests/palette_grid_pane.rs` (Show More reached and run by keyboard;
+`ds/host/caret.rs` (the caret's place), `ds/tests/it/launcher_parts_ssr.rs` (`show-more`,
+`show-more-selected`), `ds-conformance/tests/it/palette_grid_pane.rs` (Show More reached and run by keyboard;
 Space taken only while browsing, Right only at the end), `ds/components/menus/palette/palette_expand.rs`
-(what is an expand), `ds-conformance/tests/launcher_palette_cues.rs` (the rise, the expand and the
+(what is an expand), `ds-conformance/tests/it/launcher_palette_cues.rs` (the rise, the expand and the
 collapse, Reduced, 0 frames).
 
 ### 50. EditSurface spelling (mailo's composer, 2026-09-27; values proposed)
@@ -4136,7 +4136,7 @@ pub struct SpellConfig { pub dictionaries: Vec<PathBuf>, pub user: PathBuf }
 
 **Tests.** `ds/src/spell/words_tests.rs` (tokenisation, every skip rule, CJK), `script.rs` (the
 CJK blocks), `marks_tests.rs` (marks following an edit, the word being typed), `lang.rs`;
-`ds/tests/edit_surface_ssr.rs` (`spell-on.html`, `spell-marked.html`);
+`ds/tests/it/edit_surface_ssr.rs` (`spell-on.html`, `spell-marked.html`);
 `ds-blitz/spell/choose.rs` (dictionary fallback, the locale);
 `ds-blitz/tests/spell_worker.rs` (a temporary `.aff`/`.dic`: check, suggest, ignore, learn and
 read back, the system's en_US only where installed); `ds-blitz/tests/spell_edit.rs` (typed
@@ -4169,10 +4169,10 @@ fill's box is x 4.5, y 8.5, 11 by 7 units, corner 1, in 22 steps (half a unit: u
 pixel at the bar's 22 px); the default low threshold is a fifth (`LowAt::default()`), which the
 shell reads from `bar.battery_low_percent` (design/26 G10, proposed; sill's key).
 
-**Tests.** `ds/tests/status_tables.rs` (every catalogue row as a `moment_table`, the first frames,
+**Tests.** `ds/tests/it/status_tables.rs` (every catalogue row as a `moment_table`, the first frames,
 the quantising: bars by thirds, waves by thirds, the fill's steps, the low threshold);
 `ds/src/components/status/{wifi.rs, battery_state.rs}` (layers per state, frame and fill; steps and
-tone); `ds-conformance/tests/status_wifi.rs`, `status_battery.rs`, `status_bluetooth_volume.rs` (each
+tone); `ds-conformance/tests/it/status_wifi.rs`, `status_battery.rs`, `status_bluetooth_volume.rs` (each
 moment on a real Blitz document ending in `assert_settles_to_zero_frames`, the join's grace and
 its cap, a repeated stamp that does not shake, and Reduced: the still frame at once, the slash and
 the fill jumping, no shake). Gallery: Details, "Status glyphs".
@@ -4200,7 +4200,7 @@ position bar 4 px on `--m-level-well` with the played share in `--ink-soft`; the
 `--r-media`; the device figure `--fs-help` in `--ink-soft`. `Icon::MoonFilled` is Lucide `moon`'s
 outline drawn with `Shape::Solid` (filled and stroked, so its silhouette is the outline's).
 
-**Tests.** `ds/tests/center_tables.rs` (the row and playback tables, the filled moon, the spring
+**Tests.** `ds/tests/it/center_tables.rs` (the row and playback tables, the filled moon, the spring
 recipe); unit tables beside `Lighting`, `Percent`, `Reading` and `Playback`;
 `ds-conformance/tests/details_center_{tile,rows,player,battery}.rs`, all on `Clock::Virtual`, every
 moment ending in `assert_settles_to_zero_frames`, each with a Reduced case. Gallery: Details,
@@ -4293,7 +4293,7 @@ never fades in either: it jumps straight to the level, the way `Sweep`'s own `St
 Ends at 0 frames once landed (R3).
 
 **Tests.** `sill-shell-kit/idle_dim/model.rs` (the plan table: waking and a settings edit always snap,
-dimming fades except under Reduced); `ds-conformance/tests/idle_dim.rs` on `Clock::Virtual` (the fade
+dimming fades except under Reduced); sill's ds-conformance/tests/idle_dim.rs on `Clock::Virtual` (the fade
 lands on the level at `--t-idle-dim`, an input mid-fade snaps to zero at once, Reduced motion
 shows the level from its first frame, `assert_settles_to_zero_frames` once landed). CONSUMING.md
 "Idle dim".
@@ -4352,8 +4352,8 @@ from an earlier one restarts their heal from its own distance (the remaining par
 heal is not carried over), as `use_roster` does. A row whose own height changes in place (a
 group's head gaining its stacked plates) moves the rows below it without a heal.
 
-**Tests.** `ds/tests/motion_machines.rs` (the batch as a table: stagger in list order, summed
-heal distances, a row taken back not dropped); `ds-gallery/pages/lists/leaving.rs` on
+**Tests.** `ds/tests/it/motion_machines.rs` (the batch as a table: stagger in list order, summed
+heal distances, a row taken back not dropped); `ds/tests/it/lists/motion.rs` on
 `Clock::Virtual` (rows of five different heights: one leaves and the rows below heal by its
 height and end exactly one row higher; a Clear of two non-adjacent rows is dropped together at
 the second row's settle and heals by 40 then 95; clearing everything settles at the fourth row's
@@ -4418,10 +4418,10 @@ it arms. Unset, the alert is armed at once and is as above.
 --e-out`); with `shown`, hidden, the driven spring fades and lowers it, the scrim plays `menu-out
 --t-quick --e-exit`, and `on_hidden` runs once the spring rests. Reduced: it only fades.
 
-**Tests.** `ds/tests/alert_ssr.rs` and `ds-conformance/tests/alert.rs` (the default button and faces, the
-keys, as tables); `ds/tests/alert_ssr.rs` (goldens under `tests/snapshots/alert/`: floating light
+**Tests.** `ds/tests/it/alert_ssr.rs` and `ds-conformance/tests/it/alert.rs` (the default button and faces, the
+keys, as tables); `ds/tests/it/alert_ssr.rs` (goldens under `tests/snapshots/alert/`: floating light
 and dark, inline in a 320 px popover, destructive, destructive with an icon, hidden both ways; lint
-clean; every class styled; the default is the filled button); `ds-conformance/tests/alert.rs` on
+clean; every class styled; the default is the filled button); `ds-conformance/tests/it/alert.rs` on
 `Clock::Virtual` (focus starts on the default, Cancel when destructive; Return presses the
 default wherever the focus is; Escape and the scrim cancel in both flows; Space presses the
 focused button; Tab stays inside; inline it fits inside a 320 px popover, floating it is centred in

@@ -1,6 +1,6 @@
 //! The file-type layer (`ds_helpers::mime`): one module per former test file. All text is inline
 //! fixtures; nothing reads the real system.
-#![allow(clippy::unwrap_used, clippy::expect_used)] // tests may unwrap (CONVENTIONS)
+#![allow(clippy::unwrap_used, clippy::expect_used)] // tests may unwrap
 
 use ds_helpers::mime::{FileName, MimeType};
 

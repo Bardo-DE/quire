@@ -1,5 +1,5 @@
 //! The crate's integration tests: one executable, one module per former test file.
-//! A separate test target needs a stated reason (CONVENTIONS.md, Tests).
+//! A separate test target needs a stated reason.
 //! Separate target: `menu_export` (feature `menus`) starts a private D-Bus and owns the names on it.
 
 mod centre_padded;

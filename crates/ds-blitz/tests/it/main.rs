@@ -1,5 +1,5 @@
 //! The crate's integration tests: one executable, one module per former test file.
-//! A separate test target needs a stated reason (CONVENTIONS.md, Tests).
+//! A separate test target needs a stated reason.
 //! Separate targets, each with its reason: `pdf_thumb` and `pdf_thumb_queue` share the process-wide
 //! PDF worker queue and its cache with each other and would count each other's rasters;
 //! `spell_worker` and `spell_edit` start the process-wide spell service on their own dictionaries.

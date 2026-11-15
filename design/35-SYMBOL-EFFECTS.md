@@ -58,7 +58,7 @@ what moves the whole icon is CSS.
 | Disappear | `Disappear` | `morph-out` (shared) | `--t-quick` `--e-exit`, held | fade out |
 
 A loop is the same keyframes at `Iteration::Infinite`; the details lint's loop rule is excepted
-for the motion sheet with that reason (`ds-shell/tests/details_lint.rs`), and Reduced runs every
+for the motion sheet with that reason (`ds-shell/tests/it/details_lint.rs`), and Reduced runs every
 animation once (`css.rs`).
 
 ### 2.2 Part effects and Draw On (Rust)
@@ -113,8 +113,8 @@ timing table is copied, and the durations are the tokens above. Lucide's drawing
   loops in the generated sheet), `reduced::tests` (every moving keyframe has a still form).
 - `ds-style`: `icon::parts` (every part names existing shapes), `icon::posed` (groups, pivots,
   the wipe), `icon::solid_parts` (one list per part), `icon::slash`.
-- `ds/tests/motion_drift.rs`: the CSS and the recipe table agree. `ds/tests/symbol_ssr.rs`: markup
-  per effect. `ds/tests/button_busy_look_ssr.rs`: the Button wrapper's markup contract.
-- `ds-conformance/tests/symbol_effects.rs`: `Clock::Virtual`; Once fires on change and not on
+- `ds/tests/it/motion_drift.rs`: the CSS and the recipe table agree. `ds/tests/it/symbol_ssr.rs`: markup
+  per effect. `ds/tests/it/button_busy_look_ssr.rs`: the Button wrapper's markup contract.
+- `ds-conformance/tests/it/symbol_effects.rs`: `Clock::Virtual`; Once fires on change and not on
   re-render, While runs and stops, Reduced plays no part motion, each ends at 0 frames.
 - Gallery page `symbols`: every effect, a button per Once and a toggle per While.

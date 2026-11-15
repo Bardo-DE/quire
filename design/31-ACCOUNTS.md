@@ -19,7 +19,7 @@ Research inputs, cited by tag and section:
 
 Other docs: `20-SURFACES.md` §1.17 (Accounts), §2.1 Mail, §2.3 Files, §2.8 Notes, §2.9 Photos;
 `22-SETTINGS.md#94-live-modules-the-one-dynamic-path`; `30-CATALOGUE.md` §2 (component names);
-quire `CONVENTIONS.md` §3-§6 (types, traits, effects).
+quire `CONVENTIONS.md` (shared rules).
 
 ## 1. Goals, non-goals, constraints
 
@@ -82,7 +82,7 @@ surfaces, with readiness states.
 
 ### 2.1 Shape
 
-A **closed set** (CONVENTIONS §4: closed sets are enums), **versioned** as a whole:
+A **closed set** (closed sets are enums), **versioned** as a whole:
 `VocabVersion(2)`. Adding a kind or a field is a vocabulary bump, released with the daemon and
 the client crate together; an older client ignores kinds it does not know on the wire. This
 keeps GOA's lesson (a compiled list of *providers* is the trap, [R] pitfall 1) apart from the
@@ -103,7 +103,7 @@ Every closed set's stable slug is its serde `snake_case` form (files, bus, conse
 does not depend on quire's `ds-core`, so these enums do not implement `Word`: the account core
 builds below the design system for mailo on every platform; UI crates map slugs to labels.
 
-Every field is an enum or a newtype; no `bool` (CONVENTIONS §4). Shared small enums:
+Every field is an enum or a newtype; no `bool` (no `bool`). Shared small enums:
 
 | Enum | Variants |
 | --- | --- |
@@ -327,7 +327,7 @@ agents keep inferd.
 ### 4.2 Crates and the extraction from mailo
 
 The core comes out of mailo the way latchkey did, coordinated with the mailo session: mailo
-moves to depending on it in the same change (CONVENTIONS §3: no alias left behind).
+moves to depending on it in the same change (no alias left behind).
 
 Frozen as the porter repo (`porter-*` crates; section 11). **[2026-10-05]** The proposal's
 `accounts-auth` and `accounts-discover` become `porter-oauth` and `porter-discover`, beside
@@ -571,7 +571,7 @@ browser or a secret are sheet-host sheets that detent opens with `AddAccount` /
 ### 6.1 Contract
 
 One small trait per backend family (File Provider and rclone shape, [R] §2 sync engines),
-implemented by each `storage-*` crate and by the fake that tests drive (CONVENTIONS §5).
+implemented by each `storage-*` crate and by the fake that tests drive (one small trait per backend).
 
 ```rust
 pub trait Replica: Send + Sync {   // porter-sync; async fns written as `-> impl Future + Send`
@@ -759,7 +759,7 @@ stores elsewhere. Items 4-13 stand as recommended.
   `AccountCaps`, `SecretKey`, `SecretPurpose`, `Credential`), `mail-runtime/src/{oauth,signin,renewal,secrets}.rs`,
   `latchkey/src/lib.rs`.
 <!-- paths: end -->
-- Our docs: 20 §1.17, §2.1, §2.3, §2.8, §2.9; 22 §9.4; 30 §2; quire `CONVENTIONS.md` §2-§7.
+- Our docs: 20 §1.17, §2.1, §2.3, §2.8, §2.9; 22 §9.4; 30 §2; quire `CONVENTIONS.md`.
 
 ## 10. Decision list (short, for the user)
 

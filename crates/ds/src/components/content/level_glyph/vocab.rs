@@ -1,5 +1,5 @@
 //! The level glyph's vocabulary: which glyph a level carries and where it takes its state from.
-//! Every choice is a named variant (no `bool`, CONVENTIONS section 4).
+//! Every choice is a named variant (no `bool`).
 use crate::components::content::status::volume::VolumeState;
 use ds_core::vocab::{Fraction, Muting};
 

@@ -5,8 +5,8 @@
 //! rule function carries it too). CSS's lexical grammar makes every token's *kind* recoverable
 //! from its own spelling alone — a hash token always starts with `#`, a function token always
 //! ends in `(` with a name before it, a dimension is a number immediately followed by a unit —
-//! so re-deriving the kind here is not the "substring on raw source" pattern CONVENTIONS §14 warns
-//! against: it classifies one already-tokenized atom, never searches for a fragment inside a
+//! so re-deriving the kind here is not the "substring on raw source" pattern to avoid:
+//!  it classifies one already-tokenized atom, never searches for a fragment inside a
 //! larger string.
 
 /// Whether a token is whitespace or a comment: never itself part of a rule.

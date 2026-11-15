@@ -2,7 +2,7 @@
 
 This is the guide for a program that draws with quire instead of hand-rolling its own CSS and
 markup: `examples/consumer` (a minimal, fully worked example — read its `Cargo.toml`,
-`src/lib.rs` and `tests/coherence.rs` alongside this doc), sill and mailo. It assumes you have read
+`src/lib.rs` and `tests/it/coherence.rs` alongside this doc), sill and mailo. It assumes you have read
 `design/README.md`'s reading order at least through `04-COMPONENTS.md`; this doc does not repeat
 what a component looks like, only how to reach it from your own crate.
 
@@ -12,7 +12,7 @@ Citations below follow `design/README.md#3-citation-convention`:
 **Every snippet here is compiled.** A block fenced `rust` is a doc test of `examples/consumer`
 (`cargo test --manifest-path examples/consumer/Cargo.toml`, run by `scripts/check-consumer.sh`).
 A fragment that needs an app around it (`YourApp`, `YourPage`, a handler you own) is fenced
-`rust,ignore` and has its compiled twin in `examples/consumer/tests/guide.rs`, under a doc
+`rust,ignore` and has its compiled twin in `examples/consumer/tests/it/guide.rs`, under a doc
 comment naming the section. Change a snippet and its twin together.
 
 ## 1. Adding quire
@@ -266,8 +266,8 @@ a path dependency does not inherit your workspace's `[workspace.dependencies]`, 
 does (quire's root, not yours). You only need to pin the lines **you** name directly: at minimum
 `dioxus` (to write `rsx!`), plus `dioxus-ssr` as a dev-dependency if you lint an SSR render
 (section 5). Copy those lines **verbatim** from `docs/workspace-deps.toml` in quire
-(`CONVENTIONS.md#10-change-discipline`: "the pinned block ... is copied verbatim into
-every workspace"; `docs/workspace-deps.toml` is quire's own copy of the source of truth, not
+(the pinned block is copied verbatim into
+every workspace; `docs/workspace-deps.toml` is quire's own copy of the source of truth, not
 owned by this doc). If you also run on Blitz (`ds-blitz`), your own crate that calls
 `dioxus_native::*` directly (rare — most consumers only call `ds_blitz::launch`) needs the
 `dioxus-native`/`blitz-*` lines too, exactly as pinned, never a different revision.
@@ -316,7 +316,7 @@ fn App() -> Element {
 }
 ```
 
-`Ds`'s props, all named, none a `bool` (`CONVENTIONS.md#4-types`):
+`Ds`'s props, all named, none a `bool`:
 
 | Prop | Type | Default | What it does |
 | --- | --- | --- | --- |
@@ -389,7 +389,7 @@ nothing paints and in the shell no press lands.
   `Ds { extent: RootExtent::Viewport }`, or put the floor on your frame: `display:grid; width:100vw; min-height:100vh` in flow, the
   room around the card as the frame's padding; the grid's one cell stretches the `Ds` root to
   fill it, so the root has the viewport's height too. The same floor holds even if the frame is
-  absolutely placed (`crates/ds-conformance/tests/root_frame.rs` measures all three).
+  absolutely placed (`crates/ds-conformance/tests/it/root_frame.rs` measures all three).
 - **The surface is sized by its content** (a bar, a dock, an OSD card's surface): leave the
   content in flow; a card that must be positioned is positioned inside a frame that has a height.
 - **Debug it** with the Harness before looking at the compositor: `harness.rect("html")`,
@@ -498,14 +498,14 @@ rsx! {
 | `on` | `Option<Ground>` | `None` | the ground its content is drawn on; `None` is the material's (`Frame` for Bar and Dock, paper otherwise), so a paper panel inside a bar root is paper again |
 | `radius` | `Option<Corner>` | `None` | the material's corner (`--m-radius`), overridden: `Corner::Px(Px(f32::from(dock.pill_radius_px.0)))` or `Corner::Token(Radius::Panel)` |
 
-Each `None` inherits, so the common case is the material alone (`crates/ds/tests/surface.rs`
+Each `None` inherits, so the common case is the material alone (`crates/ds/tests/it/surface.rs`
 has a golden per override).
 
 ## 5. The four coherence rules
 
 `ARCHITECTURE.md#repo-rules` states the coherence rules every downstream crate
 enforces on itself. Each one below is the exact test a consumer adds — `examples/consumer/
-tests/coherence.rs` is these four, verbatim, run against a real app.
+tests/it/coherence.rs` is these four, verbatim, run against a real app.
 
 ### Rule 1 — no literal design values in your own CSS
 
@@ -607,7 +607,7 @@ instance to its own stylesheet (the Space's `--f-*` frame and `--f-grad`, an ava
 a provider mark's `--pc`), so quire's own markup lints clean with no exception. The same
 literal in a non-custom property (`background:#fff`) is an offence on any element, and a custom
 property on your own element is one too: put your values in your stylesheet as tokens.
-`examples/consumer/tests/coherence.rs::no_raw_form_control_or_svg_is_rendered` filters to
+`examples/consumer/tests/it/coherence.rs::no_raw_form_control_or_svg_is_rendered` filters to
 `Rule::RawMarkup` alone, so its name says exactly what regressing it means: someone wrote a bare
 `button`/`input`/`svg` where a quire component belongs. Filtering the same call two different
 ways, rather than one `offences.is_empty()` assertion, is what keeps a future failure legible —
@@ -626,7 +626,7 @@ drive a class toggle. Use `ds::prelude::use_motion_timer` (`MotionTimer::start(o
 `ds::prelude::settle(anim, level)`); both read the enclosing `Ds`'s resolved motion level, so
 `MotionLevel::Reduced` collapses them automatically. Prove it with `ds_harness::Harness`, which
 drives a real Blitz document on a real (if fast-forwarded) clock — the test below is
-`examples/consumer/tests/coherence.rs::the_sent_badge_times_out_on_ds_motions_own_clock`,
+`examples/consumer/tests/it/coherence.rs::the_sent_badge_times_out_on_ds_motions_own_clock`,
 shortened:
 
 ```rust,ignore
@@ -956,7 +956,7 @@ A few props worth knowing about before you read the signatures:
   detail, actions, onclose }`). `EmptyState`'s `description` is a `TextLine`, so a `RunTone::Code` run
   can hold a command. `FactList { facts: vec![Fact::new("When", ..)] }` is a read-only list of labels
   and values; a `FieldRow` takes one control or several, which wrap.
-- **Controlled components** (CONVENTIONS section 3, "Controlled components"): the caller holds the state
+- **Controlled components** (the pattern is "controlled components"): the caller holds the state
   and the component shows it. A `TextField` is `value` in, `oninput` out for each change, `onsubmit` for
   Enter alone (`onchange` is Enter or the caret leaving; neither fires `onsubmit` in a multi-line field),
   `validity: Validity::Invalid(Invalid { message, stamp })` for the error text under the field (it
@@ -1233,7 +1233,7 @@ For a bar (FINDINGS "Bar gaps"):
   shadow on its own box (`data-chrome="transparent"`); the `.ds-popover`/`.ds-menu` and
   `.ds-sheet` cards inside paint the material's tint (`--m-tint` over blur, `--m-tint-solid`
   without), edge and drop (`--m-box`). A popup document keeps `Material::Popover` and its
-  spare room is alpha 0 (sill's `sill-shell-kit/tests/bar_frame.rs` proves it over
+  spare room is alpha 0 (sill's sill-shell-kit/tests/bar_frame.rs proves it over
   `Harness::render_over(Backdrop::Clear)`).
 - **The frame ground (target (clean-up phase): removed with the frame model; the `--f-*` inks go).** Under `data-ground="frame"` (a Bar or Dock root, or `Surface { on:
   Some(Ground::Frame) }`) `--ink`, `--ink-soft`, `--ink-faint` are the Space's `--f-ink*`,
@@ -1430,7 +1430,7 @@ Palette behaviour:
   the menu and hand the field the keyboard back. The palette's `onkey` must stop the first
   Ctrl+K as well as prevent it: the key it opens the menu on bubbles on to the same root
   handler, which would see the menu open and close it at once
-  (`crates/ds-conformance/tests/palette_actions_key.rs`):
+  (`crates/ds-conformance/tests/it/palette_actions_key.rs`):
 
   ```rust,ignore
   div {
@@ -1712,7 +1712,7 @@ its fields holds derives `ds::prelude::Word` with `#[word(case = snake)]`, whose
 the variant words to pick a widget by arity (`ds_settings::schema::kind_from_variants`, section
 9.1). The trait `.schema()` calls through is
 `ds_settings::schema::SettingsSchema` — a different item from the `SettingsSchema` the derive
-macro re-exports at the crate root (`crates/ds-settings/tests/schema.rs` is quire's own worked
+macro re-exports at the crate root (`crates/ds-settings/tests/it/schema.rs` is quire's own worked
 example of both imports together):
 
 ```rust,ignore
@@ -1900,7 +1900,7 @@ authority; this table is a pointer. `ds_lint::Rule::BlitzUnsupported`
 | CSS `stroke`/`fill` reaching `<svg>` children | S6 | `ds::style::icon::render::Glyph` (renders `.ds-ic` with `stroke="currentColor"` as an attribute, not a rule); `Rule::SvgPaintInCss` |
 | `:focus-visible` / `:focus-within` (hard-coded `false`) | S12 | `.ds[*|data-modality=keyboard] :focus` — `Ds`/`ds_blitz::launch` track modality for you; `Rule::FocusPseudoClass` |
 | `onmounted` + `get_client_rect()` inside the handler itself (returns 0×0) | S9 | `ds::host::measure::use_rect()` — measures one frame later, never inside the handler; to anchor an overlay, `Anchor::Mounted` does this for you |
-| a click on a `Button` whose parent holds only inline content (the button alone, or beside text) | blitz-dom hit test | put the button in a flex row (every quire container is one) or a block; the parent of an atomic inline is hit instead (`crates/ds-conformance/tests/button_click.rs`, FINDINGS "Polish pass") |
+| a click on a `Button` whose parent holds only inline content (the button alone, or beside text) | blitz-dom hit test | put the button in a flex row (every quire container is one) or a block; the parent of an atomic inline is hit instead (`crates/ds-conformance/tests/it/button_click.rs`, FINDINGS "Polish pass") |
 | `mask-image:url(data:...)` / `background-image:url(data:...)` without a `data:` `NetProvider` | S7, S8 | `ds_blitz::launch`/`Harness` already install one; nothing to do if you use them |
 | `mix-blend-mode`, `position: sticky`, `line-clamp`, `text-shadow` | risk table | avoid outright; `ds::base::text::clip::clip_chars` covers the line-clamp case |
 | `line-clamp` for a multi-line clamp that opens on hover | notification parts | a `max-height` in whole `em` lines with a transition, and a fade decided by measuring (`NotificationCard`'s body); the hidden lines are still hit-tested, so give them `pointer-events:none` |
@@ -1977,7 +1977,7 @@ element, which a renderer reports after layout; a `VirtualDom` rendered with `di
 does, so the menu stays shut. Give it a place and it opens: `PopUpButton { start: Shown::Visible,
 anchor: Some(Anchor::Point(Point { x: Px(40.0), y: Px(20.0) })), .. }` (or click the button once
 `anchor` is set). Let the root's overlay take the menu with a few `render_immediate` rounds, as
-`crates/ds/tests/pop_up_button_open_ssr.rs` does. On a real document `start` opens the menu once
+`crates/ds/tests/it/pop_up_button_open_ssr.rs` does. On a real document `start` opens the menu once
 the button is laid out, and `anchor` moves it elsewhere.
 
 **Spaces store** (`ds::style::space::store::SpaceStore`, `crates/ds-style/src/space/store.rs`; design/21 §4, §10). Which
@@ -2198,8 +2198,8 @@ breaking change for the person's file; everything off it may change freely. Toke
 the recommended form (`.ds { --accent: ...; }` restyles every surface consistently).
 `ds::selectors::SURFACE` is the table's version: it goes up when a name is renamed or removed. An
 app that wants its own parts styleable lists them, prefixed `<app>-`, in a
-`ds::selectors::AppSelectors` and says so in its release notes when one is renamed (CONVENTIONS
-section 16 has both recipes).
+`ds::selectors::AppSelectors` and says so in its release notes when one is renamed (ARCHITECTURE.md "Repo rules" has
+both recipes).
 
 **Put your own sheets in the `app` layer.** Your own stylesheets are unlayered unless you say
 otherwise, and an unlayered rule beats every `@layer ds` rule, so a `.card { ... }` of yours would

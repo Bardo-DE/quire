@@ -329,15 +329,14 @@ Segmented control, Stepper, Chip, Badge, Tooltip, HoverCard, Toast take radii/he
 ## 4. Consumer impact
 
 Goldens in quire (all must be re-recorded in the lane that changes them, never mixed):
-`crates/ds/tests/snapshots/stylesheet.css` (2664 lines) and
-`crates/ds-shell/tests/snapshots/stylesheet.css` (3591 lines): every step changes them;
+`crates/ds-shell/tests/snapshots/stylesheet.css` (3849 lines): every step changes them;
 ds-gallery `--snapshot` images; ds-conformance size-rule tests
 (`tokens/size_rules_tests.rs`, ladder values), `ds-style` token tests, `ds-lint` CSS rules
 that name tokens.
 Consumers: sill (`launcher_card.rs`, `osd.rs`, `switcher.rs`, `screenshot_thumb`, battery
 snapshot, any test asserting a px rect of a bar/menu/row; grep `row_h|menu_row|titlebar`),
-detent (`crates/detent-ui/tests/snapshots.rs` - the settings window is the grouped-list
-poster child), anyview (`anyview-ui/tests/snapshots`, `anyview-peek/tests/golden.rs`,
+detent (crates/detent-ui/tests/snapshots.rs - the settings window is the grouped-list
+poster child), anyview (`anyview-ui/tests/snapshots`, anyview-peek/tests/golden.rs,
 `snapshots/pane`), mailo (`mail-app/src/ui/fixtures`; its mail list rows keep Table/List
 density, so only chrome moves). Run `cargo test --workspace` in each after a quire pin move.
 Per memory: **batch the quire release and warn the consumer sessions first**; each move costs

@@ -78,7 +78,7 @@ It mirrors porter's layout, conventions, gate and `check-boundary.sh`.
 
 **Sibling path dependencies:** `porter-core` and `porter-infer` (`../porter/crates/...`).
 
-**Third-party, joining quire's `docs/workspace-deps.toml` first** (CONVENTIONS §10):
+**Third-party, joining quire's `docs/workspace-deps.toml` first**:
 - `cedar-policy = "4.13"` (4.13.0, 2026-09-15, Apache-2.0)
 - `rmcp = { version = "3.5", default-features = false, features = ["server", "transport-io"] }` (3.5.0, 2026-09-28). Pin the minor; 3.x churns.
 - Already in the pinned block: `serde`, `serde_json`, `thiserror 2`, `toml 1`, `zbus 5.19` (tokio), `tokio 1`.
@@ -101,7 +101,7 @@ Correction to the table above: the crate `ds-intents` uses `docket-client`, not 
 ## 3. Frozen interfaces
 
 Rules, following porter:
-- No `bool`; newtypes everywhere; adjacently tagged serde (`kind`/`v`) and snake_case slugs; derive order per CONVENTIONS §12.
+- No `bool`; newtypes everywhere; adjacently tagged serde (`kind`/`v`) and snake_case slugs; derive order as in the shared rules.
 - `#[derive]` lines are omitted below for brevity. Every public type is `Debug, Clone, PartialEq, Eq` (+ `Serialize, Deserialize` if it is stored or crosses a wire).
 - Redacting `Debug` on every type that holds user text.
 - Async seams use `-> impl Future<Output = …> + Send`.
@@ -241,7 +241,7 @@ pub enum Need { Required, Optional, Defaulted(Value) }
 pub enum ParamType {
     Text { max: CharCount, lines: Lines },
     Integer { min: i64, max: i64 },
-    Decimal { scale: Scale },                      // no floats in data (CONVENTIONS §12)
+    Decimal { scale: Scale },                      // no floats in data
     Date, DateTime, Duration,
     Choice(Vec<ChoiceDecl>),
     Entity(EntityKind), Entities(EntityKind),

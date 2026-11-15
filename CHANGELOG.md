@@ -316,7 +316,7 @@ Public items that were two-way enums, mirror types or enum-wrapped trait objects
   is renamed or removed, not when one is added. A renamed part carries both names for one release
   (`ds::selectors::RENAMES`, `PartRename`); an app lists its own `<app>-` parts in an
   `AppSelectors` table, and `ds_lint::user_stylesheet_with(css, kits, tables)` accepts them
-  (`user_stylesheet` is unchanged). CONVENTIONS section 16 has the recipes.
+  (`user_stylesheet` is unchanged).
 - Cost notes in `ds_lint::user_stylesheet`: `HeavyBlur`, `LargeShadow`, `EndlessAnimation`,
   `AnimatesEverything` and `NoEffect`, with `UserStyleNoteKind::plain_words()` for the text
   Settings shows (every kind has one). Limits are in `ds_lint::limits`. Report only.

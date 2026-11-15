@@ -471,7 +471,7 @@ The persona's five keyframes (`persona-blink`, `-breathe`, `-wince`, `-hop`, `-d
 change asking for it. Allowed because it is bounded: whole loops only, only for 20 s after a wake
 (mount, a new `WakeStamp`, a mood change), driven by a Rust task that then ends, never a CSS
 `infinite`; then the picture rests on frame 0 and paints 0 frames (the idle-frame rule wins;
-tested in `ds-conformance/tests/emoji_animation.rs` with `Harness::is_animating`). Under Reduced only still
+tested in sill's ds-conformance/tests/emoji_animation.rs with `Harness::is_animating`). Under Reduced only still
 frames are shown.
 
 ### 4.12 Added by quire (battery fill, 2026-09-26)
@@ -481,7 +481,7 @@ the fill is driven from Rust (`ds::use_level_run`, as the animated emoji drives 
 each new `WakeStamp` the arc sweeps from empty to the level over `--t-fill` (800 ms, a new token)
 at `--e-out`; on a new level, from the level drawn last. The path is recomputed on a 16 ms tick
 and written only when it changes; the task ends when the sweep and its tail are done, so a ring
-at rest re-renders nothing and paints 0 frames (tested in `ds-conformance/tests/battery_fill.rs`
+at rest re-renders nothing and paints 0 frames (tested in sill's ds-conformance/tests/battery_fill.rs
 with `Harness::is_animating`). Its tail: a charging bolt fades in over `--t-quick`, linear,
 after an entrance fill. `BatteryFigure` counts the percentage in step. Under Reduced there is no
 sweep at all (not a 60 ms one): the first frame is the final state. This replaces the ring's

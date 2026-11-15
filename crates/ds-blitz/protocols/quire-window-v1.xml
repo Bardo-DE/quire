@@ -3,7 +3,7 @@
   Vendored copy of protocols/quire-window-v1.xml from casement-protocols (a private repo), so
   public quire does not depend on it. Our own protocol, licensed MIT or Apache-2.0 (see the
   copyright below). Keep it identical to casement-protocols' file: change it there first, then
-  copy it here (CONVENTIONS "Vendored protocol XML").
+  copy it here.
 -->
 <protocol name="quire_window_v1">
   <copyright>
